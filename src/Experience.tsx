@@ -2,6 +2,24 @@ import { Component, lazy, Suspense, useEffect, useRef, useState, type ReactNode 
 import { useReducedMotion } from 'framer-motion'
 import type { SceneKind } from './AtelierScene'
 const Scene = lazy(()=>import('./AtelierScene'))
+const sceneImages: Record<SceneKind,string> = {
+  hero:'photo-1605100804763-247f67b3557e',
+  craft:'photo-1515562141207-7a88fb7ce338',
+  collection:'photo-1599643478518-a784e5dc4c8f',
+  journey:'photo-1617038220319-276d3cfab638',
+  custom:'photo-1601121141461-9d6647bca1ed'
+}
+const sceneImage=(id:string,width:number)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&fm=webp&w=${width}&q=78`
+function useMobileExperience(){
+  const [mobile,setMobile]=useState(()=>typeof matchMedia==='function'&&matchMedia('(max-width: 800px), (pointer: coarse)').matches)
+  useEffect(()=>{
+    const query=matchMedia('(max-width: 800px), (pointer: coarse)')
+    const update=()=>setMobile(query.matches)
+    query.addEventListener('change',update)
+    return()=>query.removeEventListener('change',update)
+  },[])
+  return mobile
+}
 class SceneBoundary extends Component<{children:ReactNode},{failed:boolean}> {
   state={failed:false}
   static getDerivedStateFromError(){return {failed:true}}
@@ -10,10 +28,11 @@ class SceneBoundary extends Component<{children:ReactNode},{failed:boolean}> {
 export function SceneStage({kind='collection',label='A study in form',interactive=true}:{kind?:SceneKind;label?:string;interactive?:boolean}) {
   const ref=useRef<HTMLDivElement>(null)
   const [visible,setVisible]=useState(false)
-  const [pointer,setPointer]=useState({x:0,y:0})
   const [progress,setProgress]=useState(0)
   const [tone,setTone]=useState(kind==='custom'?'#d4a18b':'#d9b56d')
   const [exploded,setExploded]=useState(kind==='journey')
+  const [mobile3d,setMobile3d]=useState(false)
+  const mobile=useMobileExperience()
   const reduced=!!useReducedMotion()
   useEffect(()=>{
     const observer=new IntersectionObserver(([e])=>setVisible(e.isIntersecting),{rootMargin:'80px'})
@@ -27,11 +46,14 @@ export function SceneStage({kind='collection',label='A study in form',interactiv
     addEventListener('scroll',update,{passive:true});update()
     return ()=>{removeEventListener('scroll',update);cancelAnimationFrame(frame)}
   },[visible,reduced])
-  return <div ref={ref} className={`scene-stage scene-${kind}`} onPointerMove={e=>{if(reduced||e.pointerType==='touch')return;const r=e.currentTarget.getBoundingClientRect();setPointer({x:(e.clientX-r.left)/r.width*2-1,y:(e.clientY-r.top)/r.height*2-1})}} onPointerLeave={()=>setPointer({x:0,y:0})}>
+  const render3d=visible&&(!mobile||mobile3d)&&!reduced
+  const imageId=sceneImages[kind]
+  return <div ref={ref} className={`scene-stage scene-${kind} ${mobile&&!mobile3d?'scene-poster-mode':''}`}>
     <div className="scene-halo"/>
-    <div className="scene-render" aria-hidden="true"><SceneBoundary><Suspense fallback={<div className="scene-fallback">Loading the study…</div>}>{visible&&<Scene kind={kind} tone={tone} exploded={exploded} pointer={pointer} progress={progress} reduced={reduced}/>}</Suspense></SceneBoundary></div>
+    {mobile&&!mobile3d&&<img className="scene-poster" src={sceneImage(imageId,720)} srcSet={`${sceneImage(imageId,480)} 480w, ${sceneImage(imageId,720)} 720w, ${sceneImage(imageId,960)} 960w`} sizes="100vw" alt="" loading={kind==='hero'?'eager':'lazy'} fetchPriority={kind==='hero'?'high':'auto'} decoding="async"/>}
+    <div className="scene-render" aria-hidden="true"><SceneBoundary><Suspense fallback={<div className="scene-fallback">Preparing the 3D study…</div>}>{render3d&&<Scene kind={kind} tone={tone} exploded={exploded} progress={progress} reduced={reduced} mobile={mobile}/>}</Suspense></SceneBoundary></div>
     <span className="scene-label">{label} <span> / Digital material study</span></span>
-    {interactive&&<div className="scene-controls"><div className="swatches" aria-label="Preview metal finish">{[['#d9b56d','Yellow gold'],['#d5d7dc','White gold'],['#d4a18b','Rose gold']].map(([color,name])=><button type="button" key={color} style={{background:color}} aria-label={name} aria-pressed={tone===color} onClick={()=>setTone(color)}/>)}</div><button className="study-toggle" aria-pressed={exploded} onClick={()=>setExploded(!exploded)}>{exploded?'Assembled form':'Explore the layers'} <span>{exploded?'−':'+'}</span></button></div>}
+    {mobile&&!mobile3d?<button className="mobile-3d-launch" type="button" onClick={()=>setMobile3d(true)}>Explore in 3D <span>+</span></button>:interactive&&<div className="scene-controls"><div className="swatches" aria-label="Preview metal finish">{[['#d9b56d','Yellow gold'],['#d5d7dc','White gold'],['#d4a18b','Rose gold']].map(([color,name])=><button type="button" key={color} style={{background:color}} aria-label={name} aria-pressed={tone===color} onClick={()=>setTone(color)}/>)}</div><button className="study-toggle" aria-pressed={exploded} onClick={()=>setExploded(!exploded)}>{exploded?'Assembled form':'Explore the layers'} <span>{exploded?'−':'+'}</span></button></div>}
   </div>
 }
 export function ExperienceMotion(){
