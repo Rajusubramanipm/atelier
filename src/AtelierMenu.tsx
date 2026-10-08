@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
     label: 'The Atelier',
     subtitle: 'Philosophy, heritage & artisanal vision',
     href: '#about',
-    previewImg: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/intro_gold_craft.jpg',
     highlight: 'Handcrafted Heritage',
   },
   {
@@ -33,15 +33,15 @@ const navItems: NavItem[] = [
     label: 'Craft Capabilities',
     subtitle: 'Manual drafting, CAD precision & casting',
     href: '#capabilities',
-    previewImg: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/pure_gold_jhumka.jpg',
     highlight: '5 Distinct Disciplines',
   },
   {
     num: '03',
     label: 'Design Languages',
-    subtitle: 'Plain Gold, Studded, Laser Cut & Sacred',
+    subtitle: 'Plain Gold, Antique Gold, Laser Cut & Sacred',
     href: '#designs',
-    previewImg: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/pure_gold_pendant.jpg',
     highlight: '4 Design Languages',
   },
   {
@@ -49,7 +49,7 @@ const navItems: NavItem[] = [
     label: 'Curated Jewellery',
     subtitle: 'Rings, Jhumkas, Bangles, Haaram & Pendants',
     href: '#jewellery',
-    previewImg: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/pure_gold_bangle.jpg',
     highlight: '8 Core Taxonomies',
   },
   {
@@ -57,7 +57,7 @@ const navItems: NavItem[] = [
     label: 'Haute Portfolio',
     subtitle: 'Interactive 3D showcase of selected masterworks',
     href: '#portfolio',
-    previewImg: 'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/pure_gold_haaram.jpg',
     highlight: '24K & 22K Masterpieces',
   },
   {
@@ -65,7 +65,7 @@ const navItems: NavItem[] = [
     label: 'Design Journey',
     subtitle: 'From initial sketch to volumetric perfection',
     href: '#journey',
-    previewImg: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/pure_gold_bracelet.jpg',
     highlight: '4 Phase Pipeline',
   },
   {
@@ -73,7 +73,7 @@ const navItems: NavItem[] = [
     label: 'Bespoke Studio',
     subtitle: 'Custom CAD commissions & bridal heirlooms',
     href: '#custom-design',
-    previewImg: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/pure_gold_ring.jpg',
     highlight: 'Private Commissions',
   },
   {
@@ -81,12 +81,12 @@ const navItems: NavItem[] = [
     label: 'Private Concierge',
     subtitle: 'Enquire & reserve design consultation',
     href: '#contact',
-    previewImg: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+    previewImg: '/images/intro_gold_craft.jpg',
     highlight: 'Direct Atelier Desk',
   },
 ]
 
-const quickCategories = ['Plain Gold', 'Studded', 'Laser Cut', 'God-Based']
+const quickCategories = ['Plain Gold', 'Antique Gold', 'Laser Cut', 'God-Based']
 const quickPieces = ['Earrings', 'Rings', 'Bangles', 'Pendants', 'Haaram', 'Necklaces']
 
 export function AtelierMenu({ isOpen, onClose, onSelectCategory }: AtelierMenuProps) {

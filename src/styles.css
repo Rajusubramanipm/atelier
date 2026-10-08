@@ -732,43 +732,43 @@ header nav a:hover::after {
   -webkit-backdrop-filter: none !important;
 }
 
-/* Diamond Sparkle Twinkle Animation */
-.ring-diamond-sparkle-star {
-  transform-origin: 26px 5.5px;
-  animation: diamondStarTwinkle 3s ease-in-out infinite;
+/* Pure 24K Gold Hallmark Star Crest Animation */
+.ring-gold-hallmark-star {
+  transform-origin: 26px 10.5px;
+  animation: goldStarTwinkle 3s ease-in-out infinite;
 }
 
-@keyframes diamondStarTwinkle {
+@keyframes goldStarTwinkle {
   0%, 100% {
-    transform: scale(0.7) rotate(0deg);
-    opacity: 0.6;
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.75;
   }
   50% {
-    transform: scale(1.3) rotate(45deg);
+    transform: scale(1.25) rotate(45deg);
     opacity: 1;
-    filter: drop-shadow(0 0 4px #ffffff);
+    filter: drop-shadow(0 0 5px var(--gold-bright));
   }
 }
 
-/* Interactive Hover State: Ring Expands, Diamond Flares */
+/* Interactive Hover State: Ring Expands, Gold Crown Flares */
 .cursor-hovered .cute-gold-ring-svg {
   transform: scale(1.18) rotate(12deg);
-  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 18px rgba(223, 186, 83, 0.65));
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 18px rgba(223, 186, 83, 0.75));
 }
 
-.cursor-hovered .ring-diamond-sparkle-star {
-  animation: diamondStarActive 0.8s ease-in-out infinite alternate;
+.cursor-hovered .ring-gold-hallmark-star {
+  animation: goldStarActive 0.8s ease-in-out infinite alternate;
 }
 
-@keyframes diamondStarActive {
+@keyframes goldStarActive {
   from {
     transform: scale(1.1) rotate(0deg);
     opacity: 0.85;
   }
   to {
-    transform: scale(1.6) rotate(90deg);
+    transform: scale(1.5) rotate(90deg);
     opacity: 1;
-    filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px var(--gold-bright));
+    filter: drop-shadow(0 0 6px #fff2c2) drop-shadow(0 0 12px var(--gold-primary));
   }
 }
 
@@ -1029,10 +1029,10 @@ h2 i {
   color: var(--gold-bright);
 }
 
-.type-0 { background-image: url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80'); }
-.type-1 { background-image: url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1000&q=80'); }
-.type-2 { background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1000&q=80'); }
-.type-3 { background-image: url('https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=1000&q=80'); }
+.type-0 { background-image: url('/images/pure_gold_ring.jpg'); }
+.type-1 { background-image: url('/images/pure_gold_jhumka.jpg'); }
+.type-2 { background-image: url('/images/pure_gold_bangle.jpg'); }
+.type-3 { background-image: url('/images/pure_gold_haaram.jpg'); }
 
 /* Jewellery Taxonomy Section */
 .jewellery-section {

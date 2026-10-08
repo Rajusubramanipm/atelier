@@ -16,14 +16,12 @@ type Design = {
   name: string
   jewelleryCategory: string
   subCategory: string
-  designCategory: 'Plain Gold' | 'Studded' | 'Laser Cut' | 'God-Based'
+  designCategory: 'Plain Gold' | 'Antique Gold' | 'Laser Cut' | 'God-Based'
   designMethod: 'Manual' | 'CAD'
   technique?: 'Casting' | 'Paper Casting' | 'Laser Cut'
   shortDescription: string
   image: string
 }
-
-const img = (id: string, w = 1200) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=85`
 
 const designs: Design[] = [
   {
@@ -34,18 +32,18 @@ const designs: Design[] = [
     designCategory: 'Plain Gold',
     designMethod: 'Manual',
     technique: 'Casting',
-    shortDescription: 'A 24K master study in weight, rhythm and ceremonial ornamental movement.',
-    image: img('photo-1617038220319-276d3cfab638'),
+    shortDescription: 'A 24K master study in weight, rhythm and ceremonial ornamental gold movement.',
+    image: '/images/pure_gold_jhumka.jpg',
   },
   {
     id: 'solace',
     name: 'Solace Ring',
     jewelleryCategory: 'Rings',
     subCategory: 'Ladies Ring',
-    designCategory: 'Studded',
+    designCategory: 'Plain Gold',
     designMethod: 'CAD',
-    shortDescription: 'A compact 22K gold composition shaped around luminous pavé brilliance.',
-    image: img('photo-1605100804763-247f67b3557e'),
+    shortDescription: 'A monumental 22K sculptural solid gold statement ring with hand-chiseled floral facets.',
+    image: '/images/pure_gold_ring.jpg',
   },
   {
     id: 'vahana',
@@ -56,7 +54,7 @@ const designs: Design[] = [
     designMethod: 'Manual',
     technique: 'Paper Casting',
     shortDescription: 'Sacred temple jewellery iconography reinterpreted through high-relief hand engraving.',
-    image: img('photo-1599643478518-a784e5dc4c8f'),
+    image: '/images/pure_gold_pendant.jpg',
   },
   {
     id: 'linea',
@@ -67,7 +65,7 @@ const designs: Design[] = [
     designMethod: 'CAD',
     technique: 'Laser Cut',
     shortDescription: 'Precision 22K openwork geometry made for refractive light and fluid movement.',
-    image: img('photo-1515562141207-7a88fb7ce338'),
+    image: '/images/pure_gold_bangle.jpg',
   },
   {
     id: 'monsoon',
@@ -77,17 +75,17 @@ const designs: Design[] = [
     designCategory: 'Plain Gold',
     designMethod: 'Manual',
     shortDescription: 'Layered gold cascades with quiet majesty and heritage royal presence.',
-    image: img('photo-1601121141461-9d6647bca1ed'),
+    image: '/images/pure_gold_haaram.jpg',
   },
   {
     id: 'coda',
     name: 'Coda Bracelet',
     jewelleryCategory: 'Bracelets',
     subCategory: 'Ladies Bracelet',
-    designCategory: 'Studded',
+    designCategory: 'Antique Gold',
     designMethod: 'CAD',
-    shortDescription: 'An articulated study of structural gold mesh and diamond accents.',
-    image: img('photo-1535632066927-ab7c9ab60908'),
+    shortDescription: 'An articulated study of structural 22K solid gold mesh and hand-polished golden clasps.',
+    image: '/images/pure_gold_bracelet.jpg',
   },
 ]
 
@@ -403,8 +401,8 @@ function App() {
             </a>
           </div>
           <img
-            src={img('photo-1515562141207-7a88fb7ce338')}
-            alt="Gold jewellery detail in a warm studio"
+            src="/images/intro_gold_craft.jpg"
+            alt="Handcrafted 24K pure solid gold royal bridal necklace detail in atelier studio"
             loading="lazy"
           />
         </section>
@@ -478,11 +476,11 @@ function App() {
           <div className="type-grid">
             {[
               ['Plain Gold Jewellery', 'Pure form. Undiluted luster & weight.'],
-              ['Studded Jewellery', 'Designed around pavé brilliance & prong geometry.'],
+              ['Antique & Temple Gold', 'Heritage nakshi carving, temple iconography & deep warm gold patina.'],
               ['Laser Cut Jewellery', 'Precision filigree becomes modern ornament.'],
               ['God-Based Jewellery', 'Sacred iconography interpreted for posterity.'],
             ].map((x, i) => {
-              const catName = ['Plain Gold', 'Studded', 'Laser Cut', 'God-Based'][i]
+              const catName = ['Plain Gold', 'Antique Gold', 'Laser Cut', 'God-Based'][i]
               return (
                 <a
                   href="#portfolio"
@@ -558,7 +556,7 @@ function App() {
           </div>
 
           <div className="filters">
-            {['All', 'Plain Gold', 'Studded', 'Laser Cut', 'God-Based', 'Manual', 'CAD'].map((x) => (
+            {['All', 'Plain Gold', 'Antique Gold', 'Laser Cut', 'God-Based', 'Manual', 'CAD'].map((x) => (
               <button
                 className={filter === x ? 'active' : ''}
                 onClick={() => setFilter(x)}

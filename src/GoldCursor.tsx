@@ -9,7 +9,7 @@ interface Sparkle {
   vx: number
   vy: number
   life: number
-  isStar?: boolean
+  isGoldMote?: boolean
 }
 
 export function GoldCursor() {
@@ -38,7 +38,7 @@ export function GoldCursor() {
       mousePos.current.y = e.clientY
       if (!visible) setVisible(true)
 
-      // Emit soft ambient gold stardust on graceful movement
+      // Emit soft pure gold stardust motes on movement
       if (Math.random() < 0.28) {
         sparklesRef.current.push({
           id: Math.random(),
@@ -49,7 +49,7 @@ export function GoldCursor() {
           vx: (Math.random() - 0.5) * 0.4,
           vy: (Math.random() - 0.5) * 0.4 - 0.15,
           life: 1,
-          isStar: Math.random() < 0.35,
+          isGoldMote: Math.random() < 0.4,
         })
       }
 
@@ -63,7 +63,7 @@ export function GoldCursor() {
 
     const handleMouseDown = () => {
       setClicked(true)
-      // Playful diamond burst on click
+      // Pure molten gold burst on click
       for (let i = 0; i < 9; i++) {
         const angle = (i / 9) * Math.PI * 2 + (Math.random() - 0.5) * 0.4
         const speed = Math.random() * 2.2 + 1.2
@@ -71,12 +71,12 @@ export function GoldCursor() {
           id: Math.random(),
           x: mousePos.current.x,
           y: mousePos.current.y,
-          size: Math.random() * 3.2 + 1.4,
+          size: Math.random() * 3 + 1.2,
           opacity: 1,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
           life: 1,
-          isStar: i % 2 === 0,
+          isGoldMote: i % 2 === 0,
         })
       }
     }
@@ -105,7 +105,7 @@ export function GoldCursor() {
     window.addEventListener('resize', updateCanvasSize)
 
     const render = () => {
-      // Smooth interpolation for the trailing ring
+      // Smooth interpolation for the trailing solid gold ring
       const factor = 0.22
       const prevX = trailingPos.current.x
       const prevY = trailingPos.current.y
@@ -128,7 +128,7 @@ export function GoldCursor() {
         ringRef.current.style.transform = `translate3d(${trailingPos.current.x}px, ${trailingPos.current.y}px, 0) rotate(${currentAngle.current}deg)`
       }
 
-      // Render stardust on overlay canvas (Zero blur on page background)
+      // Render pure gold stardust on overlay canvas (Zero blur on page background)
       if (ctx && canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -144,12 +144,12 @@ export function GoldCursor() {
             continue
           }
 
-          if (s.isStar) {
-            // Draw 4-point diamond star
-            const r = s.size * s.life * 1.4
+          if (s.isGoldMote) {
+            // Draw 4-point golden star sparkle
+            const r = s.size * s.life * 1.3
             ctx.save()
             ctx.beginPath()
-            ctx.fillStyle = `rgba(255, 250, 230, ${s.opacity * 0.85})`
+            ctx.fillStyle = `rgba(255, 235, 140, ${s.opacity * 0.85})`
             ctx.moveTo(s.x, s.y - r)
             ctx.quadraticCurveTo(s.x, s.y, s.x + r, s.y)
             ctx.quadraticCurveTo(s.x, s.y, s.x, s.y + r)
@@ -158,10 +158,10 @@ export function GoldCursor() {
             ctx.fill()
             ctx.restore()
           } else {
-            // Draw soft gold stardust dot
+            // Draw pure molten gold stardust dot
             ctx.beginPath()
             ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(223, 186, 83, ${s.opacity * 0.75})`
+            ctx.fillStyle = `rgba(223, 186, 83, ${s.opacity * 0.8})`
             ctx.fill()
           }
         }
@@ -190,10 +190,10 @@ export function GoldCursor() {
       className={`gold-cursor-container ${visible ? 'cursor-visible' : 'cursor-hidden'} ${hovered ? 'cursor-hovered' : ''} ${clicked ? 'cursor-clicked' : ''}`}
       aria-hidden="true"
     >
-      {/* Light Gold Stardust Canvas (Zero Blur, No Obstruction) */}
+      {/* Pure Gold Stardust Canvas (Zero Blur, No Obstruction) */}
       <canvas ref={canvasRef} className="gold-cursor-dust-canvas" />
 
-      {/* Cute Interactive Solitaire Gold Ring */}
+      {/* Cute Interactive Solid 24K Gold Signet Ring (100% Gold, No Diamonds) */}
       <div ref={ringRef} className="cute-gold-ring-wrapper">
         <svg
           className="cute-gold-ring-svg"
@@ -213,28 +213,28 @@ export function GoldCursor() {
               <stop offset="100%" stopColor="#FFF2BF" />
             </linearGradient>
 
-            {/* Solitaire Diamond Brilliant Facet Gradient */}
-            <linearGradient id="solitaireGemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFFFFF" />
-              <stop offset="45%" stopColor="#F7F2E7" />
-              <stop offset="80%" stopColor="#DFBA53" />
-              <stop offset="100%" stopColor="#FFFFFF" />
+            {/* Solid Gold Signet Seal Crown Gradient */}
+            <linearGradient id="solidGoldSealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFFBEB" />
+              <stop offset="35%" stopColor="#F7DC87" />
+              <stop offset="70%" stopColor="#DFBA53" />
+              <stop offset="100%" stopColor="#B08119" />
             </linearGradient>
 
-            {/* Subtle Diamond Luster Glow */}
-            <filter id="diamondGlowFilter" x="-40%" y="-40%" width="180%" height="180%">
+            {/* Rich Golden Halo Glow */}
+            <filter id="goldRingGlowFilter" x="-40%" y="-40%" width="180%" height="180%">
               <feGaussianBlur stdDeviation="1.5" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
           </defs>
 
-          {/* 1. Main Circular 24K Gold Ring Shank (Hollow, 100% Transparent Center, Zero Blur) */}
+          {/* 1. Main Circular 24K Solid Gold Shank (Hollow, 100% Transparent Center, Zero Blur) */}
           <circle
             cx="26"
             cy="31"
             r="16.5"
             stroke="url(#cuteRingBandGrad)"
-            strokeWidth="3.6"
+            strokeWidth="3.8"
             strokeLinecap="round"
           />
 
@@ -242,56 +242,56 @@ export function GoldCursor() {
           <circle
             cx="26"
             cy="31"
-            r="14.5"
+            r="14.4"
             stroke="#FFF4CC"
-            strokeWidth="0.75"
-            opacity="0.8"
+            strokeWidth="0.8"
+            opacity="0.85"
           />
 
-          {/* 3. Outer Rim Gleam */}
+          {/* 3. Outer Polished Rim Gleam */}
           <circle
             cx="26"
             cy="31"
-            r="18.5"
+            r="18.6"
             stroke="#FFFDF5"
             strokeWidth="0.6"
             opacity="0.65"
           />
 
-          {/* 4. Gold Crown Prong Collet at Top (12 o'clock) */}
+          {/* 4. Solid Gold Signet Collet / Shoulder Flanges at 12 o'clock */}
           <path
-            d="M 22 17.5 L 24 13 L 28 13 L 30 17.5 Z"
+            d="M 20 18.5 L 23 13 L 29 13 L 32 18.5 Z"
             fill="url(#cuteRingBandGrad)"
             stroke="#FFE79A"
             strokeWidth="0.6"
           />
 
-          {/* 5. Brilliant Solitaire Diamond Gem */}
+          {/* 5. Sculpted Pure Solid 24K Gold Signet Crown Plate */}
           <polygon
-            points="26,5 31,11 26,16.5 21,11"
-            fill="url(#solitaireGemGrad)"
-            stroke="#FFFFFF"
+            points="26,5 32,10.5 26,16 20,10.5"
+            fill="url(#solidGoldSealGrad)"
+            stroke="#FFF5D1"
             strokeWidth="0.9"
-            filter="url(#diamondGlowFilter)"
+            filter="url(#goldRingGlowFilter)"
           />
 
-          {/* 6. Diamond Facet Reflection Triangle */}
+          {/* 6. Gold Embossed Facet Bevel */}
           <polygon
-            points="26,6.2 29.2,11 26,14.8 22.8,11"
-            fill="#FFFFFF"
-            opacity="0.85"
+            points="26,6.2 30.5,10.5 26,14.8 21.5,10.5"
+            fill="url(#cuteRingBandGrad)"
+            opacity="0.9"
           />
 
-          {/* 7. Delicate Golden Prongs holding the diamond */}
-          <circle cx="21" cy="11" r="1.1" fill="#FFEAA3" />
-          <circle cx="31" cy="11" r="1.1" fill="#FFEAA3" />
-          <circle cx="26" cy="5.2" r="1.2" fill="#FFFFFF" />
+          {/* 7. Solid Gold Granule Beading Accents */}
+          <circle cx="20" cy="10.5" r="1.2" fill="#FFF2BD" />
+          <circle cx="32" cy="10.5" r="1.2" fill="#FFF2BD" />
+          <circle cx="26" cy="5.2" r="1.3" fill="#FFF8D6" />
 
-          {/* 8. Star Diamond Sparkle Reflection (Twinkles on hover) */}
+          {/* 8. Engraved 24K Gold Hallmark Star Crest (✦ Pure Gold Emblem) */}
           <path
-            className="ring-diamond-sparkle-star"
-            d="M 26 2 Q 26 5.5 29.5 5.5 Q 26 5.5 26 9 Q 26 5.5 22.5 5.5 Q 26 5.5 26 2 Z"
-            fill="#FFFFFF"
+            className="ring-gold-hallmark-star"
+            d="M 26 7.5 Q 26 10.5 28.5 10.5 Q 26 10.5 26 13.5 Q 26 10.5 23.5 10.5 Q 26 10.5 26 7.5 Z"
+            fill="#FFFBE8"
             opacity="0.95"
           />
         </svg>

@@ -3,13 +3,13 @@ import { useReducedMotion } from 'framer-motion'
 import type { SceneKind } from './AtelierScene'
 const Scene = lazy(()=>import('./AtelierScene'))
 const sceneImages: Record<SceneKind,string> = {
-  hero:'photo-1605100804763-247f67b3557e',
-  craft:'photo-1515562141207-7a88fb7ce338',
-  collection:'photo-1599643478518-a784e5dc4c8f',
-  journey:'photo-1617038220319-276d3cfab638',
-  custom:'photo-1601121141461-9d6647bca1ed'
+  hero: '/images/intro_gold_craft.jpg',
+  craft: '/images/intro_gold_craft.jpg',
+  collection: '/images/pure_gold_pendant.jpg',
+  journey: '/images/pure_gold_haaram.jpg',
+  custom: '/images/pure_gold_ring.jpg'
 }
-const sceneImage=(id:string,width:number)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&fm=webp&w=${width}&q=78`
+const sceneImage=(id:string,width:number)=>id.startsWith('/')?id:`https://images.unsplash.com/${id}?auto=format&fit=crop&fm=webp&w=${width}&q=78`
 function useMobileExperience(){
   const [mobile,setMobile]=useState(()=>typeof matchMedia==='function'&&matchMedia('(max-width: 800px), (pointer: coarse)').matches)
   useEffect(()=>{

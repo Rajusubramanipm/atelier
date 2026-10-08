@@ -49,14 +49,14 @@ export function PullartLogo({
           <circle cx="16" cy="30" r="1.2" fill="#FFF8D6" />
           <circle cx="2" cy="16" r="1.2" fill="#FFF8D6" />
 
-          {/* Central 8-Point Brilliant Diamond Facet */}
+          {/* Central 24K Solid Gold Hallmark Crest */}
           <path
             d="M16 5 L17.8 12.5 L24 10 L19.5 14.8 L27 16 L19.5 17.2 L24 22 L17.8 19.5 L16 27 L14.2 19.5 L8 22 L12.5 17.2 L5 16 L12.5 14.8 L8 10 L14.2 12.5 Z"
             fill="url(#logoGoldGradIcon)"
             filter="url(#logoGoldGlowIcon)"
           />
-          {/* Central brilliant white diamond core */}
-          <circle cx="16" cy="16" r="2" fill="#FFFFFF" />
+          {/* Central solid gold hallmark core */}
+          <circle cx="16" cy="16" r="2.2" fill="url(#logoGoldGradIcon)" stroke="#FFEAA8" strokeWidth="0.5" />
         </svg>
       </div>
 
