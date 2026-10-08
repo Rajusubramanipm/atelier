@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
-import { ArrowUpRight, Search, X, ArrowRight, ChevronDown, Sparkles } from 'lucide-react'
+import { ArrowUpRight, Search, X, ArrowRight, ChevronDown, Sparkles, Gem, Compass } from 'lucide-react'
 import './styles.css'
 import './experience.css'
 import { SceneStage, ExperienceMotion } from './Experience'
@@ -111,7 +111,7 @@ function Header({
 
   return (
     <header>
-      <a className="brand-logo-link" href="#top" title="Pullart Designs — Haute Jewellery Atelier">
+      <a className="brand-logo-link" href="#top" title="Pullart Designs — Haute Gold Jewellery Studio">
         <PullartLogo size="default" />
       </a>
 
@@ -130,7 +130,7 @@ function Header({
           className="head-search-btn"
           aria-label="Search designs"
           onClick={onSearch}
-          title="Search Atelier Portfolio"
+          title="Search Pullart Portfolio"
         >
           <Search size={16} />
         </button>
@@ -145,11 +145,11 @@ function Header({
         {/* Creative Menu Button (Desktop & Mobile) */}
         <button
           className="head-menu-btn"
-          aria-label="Open Atelier Menu"
+          aria-label="Open Pullart Menu"
           onClick={onOpenMenu}
         >
           <span className="menu-btn-sparkle">✦</span>
-          <span className="menu-btn-label"><span className="hide-on-mobile">Atelier </span>Menu</span>
+          <span className="menu-btn-label"><span className="hide-on-mobile">Pullart </span>Menu</span>
           <span className="menu-btn-live-dot" />
         </button>
       </div>
@@ -217,7 +217,7 @@ function EnquiryForm() {
       className="enquiry-form"
       onSubmit={(e) => {
         e.preventDefault()
-        alert('Thank you — your bespoke enquiry has been sent to the Atelier desk.')
+        alert('Thank you — your bespoke enquiry has been sent to the Pullart Designs studio desk.')
       }}
     >
       <div>
@@ -258,6 +258,53 @@ function EnquiryForm() {
         Submit Bespoke Request <ArrowRight size={16} />
       </button>
     </form>
+  )
+}
+
+function MobileAppDock({
+  onOpenMenu,
+  onSearch,
+}: {
+  onOpenMenu: () => void
+  onSearch: () => void
+}) {
+  return (
+    <nav className="mobile-app-dock" aria-label="Mobile Navigation Dock">
+      <button
+        type="button"
+        className="dock-item"
+        onClick={onOpenMenu}
+        aria-label="Open Pullart Menu"
+      >
+        <Sparkles size={16} />
+        <span>Menu</span>
+      </button>
+
+      <button
+        type="button"
+        className="dock-item"
+        onClick={onSearch}
+        aria-label="Search Collections"
+      >
+        <Search size={16} />
+        <span>Search</span>
+      </button>
+
+      <a href="#jewellery" className="dock-item" aria-label="Gold Pieces">
+        <Gem size={16} />
+        <span>Pieces</span>
+      </a>
+
+      <a href="#portfolio" className="dock-item" aria-label="Selected Works">
+        <Compass size={16} />
+        <span>Works</span>
+      </a>
+
+      <a href="#contact" className="dock-item dock-highlight" aria-label="Enquire with Studio">
+        <ArrowUpRight size={16} />
+        <span>Enquire</span>
+      </a>
+    </nav>
   )
 }
 
@@ -304,11 +351,17 @@ function App() {
         onOpenMenu={() => setMenuOpen(true)}
       />
 
-      {/* Creative Atelier Luxury Menu Overlay */}
+      {/* Creative Pullart Luxury Menu Overlay */}
       <AtelierMenu
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
         onSelectCategory={handleFilterSelect}
+      />
+
+      {/* Mobile Luxury Floating App Dock */}
+      <MobileAppDock
+        onOpenMenu={() => setMenuOpen(true)}
+        onSearch={() => setSearch(true)}
       />
 
       <main>
@@ -320,9 +373,6 @@ function App() {
           {/* Clean Focused Light Beam & Sparse Gold Motes (Uncluttered) */}
           <GoldHeroSpotlight />
 
-          {/* 3D Gold Jewellery Sculpture under Spotlight */}
-          <SceneStage kind="hero" label="24K Sculptural Study / 001" interactive={false} />
-
           {/* Hero Content */}
           <div className="hero-content">
             <motion.div
@@ -331,7 +381,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span>✦</span> PULLART DESIGNS • HAUTE GOLD JEWELLERY ATELIER
+              <span>✦</span> PULLART DESIGNS • HAUTE GOLD JEWELLERY STUDIO
             </motion.div>
 
             <motion.h1
@@ -342,6 +392,9 @@ function App() {
               The poetry<br />
               of <i>pure gold.</i>
             </motion.h1>
+
+            {/* 3D Gold Jewellery Sculpture under Spotlight (Prominently visible & interactive on mobile & desktop) */}
+            <SceneStage kind="hero" label="24K Sculptural Study / 001" interactive={true} />
 
             {/* Harmonized Hero CTAs with Matching Proportions */}
             <div className="hero-actions-group">
@@ -364,13 +417,13 @@ function App() {
                 transition={{ delay: 0.55 }}
               >
                 <Sparkles size={13} />
-                Open Atelier Menu
+                Explore Pullart Menu
               </motion.button>
             </div>
           </div>
 
           <a className="hero-scroll" href="#about">
-            <span>DISCOVER THE ATELIER</span>
+            <span>DISCOVER PULLART DESIGNS</span>
             <span>↓</span>
           </a>
 
@@ -392,7 +445,7 @@ function App() {
           <div className="intro-side">
             <p>
               Jewellery design combines creativity, proportion, detailing and an understanding of
-              how pure gold breathes under the artisan’s flame. Our atelier unites Manual freehand
+              how pure gold breathes under the artisan’s flame. Pullart Designs unites manual freehand
               sketches and high-precision CAD engineering across heirloom jewellery categories and
               specialised casting techniques.
             </p>
@@ -402,7 +455,7 @@ function App() {
           </div>
           <img
             src="/images/intro_gold_craft.jpg"
-            alt="Handcrafted 24K pure solid gold royal bridal necklace detail in atelier studio"
+            alt="Handcrafted 24K pure solid gold royal bridal necklace detail in Pullart studio"
             loading="lazy"
           />
         </section>
@@ -662,7 +715,7 @@ function App() {
         </div>
 
         <div className="footer-links">
-          <a href="#about">The Atelier</a>
+          <a href="#about">Pullart Heritage</a>
           <a href="#capabilities">Capabilities</a>
           <a href="#jewellery">Jewellery</a>
           <a href="#designs">Languages</a>

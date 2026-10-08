@@ -22,7 +22,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     num: '01',
-    label: 'The Atelier',
+    label: 'Pullart Heritage',
     subtitle: 'Philosophy, heritage & artisanal vision',
     href: '#about',
     previewImg: '/images/intro_gold_craft.jpg',
@@ -82,7 +82,7 @@ const navItems: NavItem[] = [
     subtitle: 'Enquire & reserve design consultation',
     href: '#contact',
     previewImg: '/images/intro_gold_craft.jpg',
-    highlight: 'Direct Atelier Desk',
+    highlight: 'Direct Studio Desk',
   },
 ]
 
@@ -127,14 +127,14 @@ export function AtelierMenu({ isOpen, onClose, onSelectCategory }: AtelierMenuPr
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="atelier-menu-overlay"
+          className="atelier-menu-overlay pullart-menu-overlay"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           role="dialog"
           aria-modal="true"
-          aria-label="Atelier Navigation Menu"
+          aria-label="Pullart Navigation Menu"
         >
           {/* Ambient Liquid Gold Waves in Menu Background */}
           <div className="menu-wave-backdrop">
@@ -154,7 +154,7 @@ export function AtelierMenu({ isOpen, onClose, onSelectCategory }: AtelierMenuPr
             <button
               className="menu-close-btn"
               onClick={onClose}
-              aria-label="Close atelier menu"
+              aria-label="Close Pullart menu"
             >
               <span className="close-label">CLOSE</span>
               <span className="close-icon-wrapper">

@@ -327,27 +327,57 @@
   .scene-stage {
     max-width: 100%;
   }
-  /* Theatrical Ambient 3D Backdrop on Mobile Hero — Zero Overflow, Zero Clipping */
+  /* Prominently Featured Interactive 3D Gold Sculpture on Mobile */
   .premium-hero .scene-hero {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.35;
-    pointer-events: none;
-    z-index: 1;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: 350px !important;
+    height: 290px !important;
+    margin: 12px auto 20px !important;
+    border-radius: 14px;
+    background: radial-gradient(circle at 50% 50%, rgba(38, 31, 20, 0.9) 0%, rgba(14, 12, 8, 0.95) 100%);
+    border: 1px solid rgba(223, 186, 83, 0.32);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), inset 0 0 30px rgba(223, 186, 83, 0.12);
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 5 !important;
     overflow: hidden;
   }
   .premium-hero .scene-render {
-    inset: 0;
+    inset: 0 !important;
   }
-  .premium-hero .scene-poster {
-    object-position: center 40%;
-    filter: contrast(1.1) brightness(0.85);
+  .premium-hero .scene-halo {
+    inset: 4% !important;
+    border-color: rgba(223, 186, 83, 0.3) !important;
   }
-  .premium-hero .scene-label,
-  .premium-hero .mobile-3d-launch {
-    display: none !important;
+  .premium-hero .scene-label {
+    display: flex !important;
+    top: 14px !important;
+    left: 14px !important;
+    bottom: auto !important;
+    right: auto !important;
+    font-size: 8.5px !important;
+    letter-spacing: 0.16em !important;
+    background: rgba(14, 12, 8, 0.85);
+    padding: 4px 10px;
+    border-radius: 9999px;
+    border: 1px solid rgba(223, 186, 83, 0.25);
+  }
+  .premium-hero .scene-controls {
+    display: flex !important;
+    bottom: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    gap: 8px !important;
+  }
+  .premium-hero .swatches button {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .premium-hero .study-toggle {
+    font-size: 8.5px !important;
+    padding: 5px 9px !important;
   }
 }
 

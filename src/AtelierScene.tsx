@@ -62,7 +62,7 @@ function Sculpture({ kind, tone, exploded, progress, reduced, mobile }: Props) {
             </mesh>
             <mesh position={[0, 0, 0.285]}>
               <octahedronGeometry args={[0.048, 0]} />
-              <meshStandardMaterial color="#fff4d8" metalness={0.8} roughness={0.1} />
+              <meshStandardMaterial color={goldTone} metalness={0.95} roughness={0.15} />
             </mesh>
           </group>
         )

@@ -485,6 +485,11 @@ header nav a:hover::after {
   z-index: 1;
 }
 
+/* Hidden by default on desktop; shown only on mobile phones <= 640px */
+.mobile-app-dock {
+  display: none;
+}
+
 /* --------------------------------------------------------------------------
    HERO BANNER — THEATRICAL LIGHT-FOCUSED GRADIENT CONCEPT
    -------------------------------------------------------------------------- */
@@ -513,7 +518,7 @@ header nav a:hover::after {
 }
 
 .hero-content {
-  position: relative;
+  position: static;
   z-index: 5;
   width: 54%;
   padding-left: 9%;
@@ -521,6 +526,8 @@ header nav a:hover::after {
 }
 
 .hero-content > * {
+  position: relative;
+  z-index: 5;
   pointer-events: auto;
 }
 
@@ -1427,12 +1434,13 @@ footer > div p {
 }
 
 /* --------------------------------------------------------------------------
-   CREATIVE ATELIER MENU EXPERIENCE STYLES
+   CREATIVE PULLART MENU EXPERIENCE STYLES
    -------------------------------------------------------------------------- */
-.atelier-menu-overlay {
+.atelier-menu-overlay,
+.pullart-menu-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 2200;
   background: rgba(8, 7, 5, 0.96);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
@@ -1883,18 +1891,23 @@ footer > div p {
 /* --------------------------------------------------------------------------
    MODALS & SEARCH OVERLAY
    -------------------------------------------------------------------------- */
-.modal, .search-overlay {
+.modal {
   position: fixed;
   inset: 0;
-  z-index: 200;
-}
-
-.modal {
+  z-index: 2000;
   background: rgba(6, 5, 3, 0.88);
   backdrop-filter: blur(20px);
   display: grid;
   place-items: center;
   padding: 40px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
 }
 
 .modal > button, .search-overlay > button {
@@ -2096,34 +2109,42 @@ footer > div p {
   .hero.premium-hero {
     min-height: 100svh;
     height: auto;
-    padding: 115px 6% 45px;
+    padding: 105px 6% 40px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
   }
 
   .hero-content {
     width: 100%;
     padding: 0;
-    text-align: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     z-index: 5;
   }
 
   .hero h1 {
-    font-size: clamp(48px, 12vw, 82px);
-    line-height: 0.94;
-    letter-spacing: -0.035em;
-    margin: 0 0 24px 0;
+    font-size: clamp(42px, 10vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin: 0 auto 12px;
+    text-align: center;
   }
 
   .hero-badge-gold {
     font-size: 9px;
     letter-spacing: 0.16em;
     padding: 6px 14px;
-    margin-bottom: 20px;
+    margin: 0 auto 16px;
     max-width: 100%;
     white-space: normal;
     line-height: 1.4;
+    text-align: center;
   }
 
   /* Structural Grid Stacks */
@@ -2300,22 +2321,38 @@ footer > div p {
 
   /* Hero Banner on Phones */
   .hero.premium-hero {
-    padding: max(100px, calc(75px + env(safe-area-inset-top))) 5% 40px;
+    padding: max(85px, calc(68px + env(safe-area-inset-top))) 5% 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-content {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .hero h1 {
-    font-size: clamp(38px, 10.5vw, 56px);
-    line-height: 0.95;
+    font-size: clamp(34px, 9.4vw, 50px);
+    line-height: 0.98;
     letter-spacing: -0.03em;
-    margin: 0 0 20px 0;
+    margin: 0 auto 8px 0;
+    text-align: center;
   }
 
   .hero-badge-gold {
     font-size: 8px;
     letter-spacing: 0.12em;
     padding: 5px 12px;
-    margin-bottom: 16px;
-    width: 100%;
+    margin: 0 auto 12px;
+    width: auto;
+    max-width: 100%;
     justify-content: center;
     text-align: center;
   }
@@ -2324,8 +2361,9 @@ footer > div p {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    gap: 12px;
-    margin-top: 18px;
+    max-width: 340px;
+    margin: 0 auto;
+    gap: 10px;
   }
 
   .hero-explore,
@@ -2338,7 +2376,13 @@ footer > div p {
     border-radius: 9999px;
   }
 
-  .hero-scroll,
+  .hero-scroll {
+    display: inline-flex !important;
+    margin-top: 18px;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+  }
+
   .hero-edition {
     display: none !important;
   }
@@ -2619,6 +2663,85 @@ footer > div p {
   .gold-wave-divider-wrapper {
     height: 60px !important;
     margin: -14px 0 !important;
+  }
+
+  /* Luxury Mobile Floating App Dock (<= 640px) */
+  .mobile-app-dock {
+    display: flex;
+    position: fixed;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 400px;
+    height: 58px;
+    background: rgba(14, 12, 8, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(223, 186, 83, 0.35);
+    border-radius: 9999px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(223, 186, 83, 0.12);
+    z-index: 900;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px;
+  }
+
+  .dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 8.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 20px;
+    transition: all 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .dock-item svg {
+    color: var(--gold-light);
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  .dock-item:active {
+    transform: scale(0.92);
+    color: var(--gold-bright);
+  }
+
+  .dock-item:active svg {
+    color: var(--gold-bright);
+    transform: scale(1.15);
+  }
+
+  .dock-item.dock-highlight {
+    background: var(--gold-gradient);
+    color: #0c0a06;
+    padding: 7px 14px;
+    border-radius: 9999px;
+    box-shadow: 0 2px 10px rgba(223, 186, 83, 0.35);
+  }
+
+  .dock-item.dock-highlight svg {
+    color: #0c0a06;
+  }
+
+  .dock-item.dock-highlight span {
+    font-weight: 800;
+  }
+
+  /* Safe bottom padding for footer so floating dock never obscures copyright or links */
+  footer {
+    padding-bottom: calc(95px + env(safe-area-inset-bottom)) !important;
   }
 }
 
