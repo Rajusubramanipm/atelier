@@ -5,9 +5,10 @@ import { ArrowUpRight, Search, X, ArrowRight, ChevronDown, Sparkles } from 'luci
 import './styles.css'
 import './experience.css'
 import { SceneStage, ExperienceMotion } from './Experience'
-import { GoldWaveCanvas } from './GoldWaveCanvas'
+import { GoldHeroSpotlight } from './GoldHeroSpotlight'
 import { GoldWaveDivider } from './GoldWaveDivider'
 import { AtelierMenu } from './AtelierMenu'
+import { GoldCursor } from './GoldCursor'
 
 type Design = {
   id: string
@@ -124,27 +125,33 @@ function Header({
         ))}
       </nav>
 
+      {/* Unified Luxury Capsule Suite for Header CTAs */}
       <div className="head-actions">
         <button
+          className="head-search-btn"
           aria-label="Search designs"
           onClick={onSearch}
           title="Search Atelier Portfolio"
         >
-          <Search size={17} />
+          <Search size={16} />
         </button>
 
-        <a className="enquire" href="#contact">
-          Enquire <ArrowUpRight size={14} />
+        <a className="head-enquire-btn" href="#contact">
+          <span>Enquire</span>
+          <div className="cta-arrow-circle">
+            <ArrowUpRight size={13} />
+          </div>
         </a>
 
         {/* Creative Menu Button (Desktop & Mobile) */}
         <button
-          className="creative-menu-trigger"
+          className="head-menu-btn"
           aria-label="Open Atelier Menu"
           onClick={onOpenMenu}
         >
-          <Sparkles size={13} />
+          <span className="menu-btn-sparkle">✦</span>
           <span>Atelier Menu</span>
+          <span className="menu-btn-live-dot" />
         </button>
       </div>
     </header>
@@ -287,6 +294,9 @@ function App() {
 
   return (
     <div id="top" className={scrolled ? 'scrolled' : ''}>
+      {/* Innovative Jeweller's Loupe & Liquid Gold Dust Cursor */}
+      <GoldCursor />
+
       <ExperienceMotion />
 
       {/* Primary Header */}
@@ -303,22 +313,15 @@ function App() {
       />
 
       <main>
-        {/* ================= HERO SECTION WITH FLUID GOLD WAVES ================= */}
+        {/* ================= HERO SECTION WITH LIGHT-FOCUSED SPOTLIGHT ================= */}
         <section className="hero premium-hero">
-          {/* Ambient Lighting & Meshes */}
+          {/* Focused Theatrical Spotlight Gradient Background */}
           <div className="hero-ambient-lights" />
 
-          {/* Interactive Liquid Gold Waves in Hero */}
-          <div className="hero-wave-wrapper">
-            <GoldWaveCanvas
-              waveCount={4}
-              speed={1.1}
-              opacity={0.45}
-              interactive={true}
-            />
-          </div>
+          {/* Clean Focused Light Beam & Sparse Gold Motes (Uncluttered) */}
+          <GoldHeroSpotlight />
 
-          {/* 3D Gold Jewellery Sculpture */}
+          {/* 3D Gold Jewellery Sculpture under Spotlight */}
           <SceneStage kind="hero" label="24K Sculptural Study / 001" interactive={false} />
 
           {/* Hero Content */}
@@ -341,6 +344,7 @@ function App() {
               of <i>pure gold.</i>
             </motion.h1>
 
+            {/* Harmonized Hero CTAs with Matching Proportions */}
             <div className="hero-actions-group">
               <motion.a
                 className="hero-explore"
@@ -374,7 +378,7 @@ function App() {
           <span className="hero-edition">24K & 22K SOLID GOLD ARCHIVE</span>
         </section>
 
-        {/* Liquid Gold Wave Transition */}
+        {/* Sculpted Wave Transition into About */}
         <GoldWaveDivider />
 
         {/* ================= ABOUT / PHILOSOPHY ================= */}
