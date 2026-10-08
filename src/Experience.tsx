@@ -29,7 +29,7 @@ export function SceneStage({kind='collection',label='A study in form',interactiv
   const ref=useRef<HTMLDivElement>(null)
   const [visible,setVisible]=useState(false)
   const [progress,setProgress]=useState(0)
-  const [tone,setTone]=useState(kind==='custom'?'#d4a18b':'#d9b56d')
+  const [tone,setTone]=useState(kind==='custom'?'#e0a894':'#dfba53')
   const [exploded,setExploded]=useState(kind==='journey')
   const [mobile3d,setMobile3d]=useState(false)
   const mobile=useMobileExperience()
@@ -53,7 +53,7 @@ export function SceneStage({kind='collection',label='A study in form',interactiv
     {mobile&&!mobile3d&&<img className="scene-poster" src={sceneImage(imageId,720)} srcSet={`${sceneImage(imageId,480)} 480w, ${sceneImage(imageId,720)} 720w, ${sceneImage(imageId,960)} 960w`} sizes="100vw" alt="" loading={kind==='hero'?'eager':'lazy'} fetchPriority={kind==='hero'?'high':'auto'} decoding="async"/>}
     <div className="scene-render" aria-hidden="true"><SceneBoundary><Suspense fallback={<div className="scene-fallback">Preparing the 3D study…</div>}>{render3d&&<Scene kind={kind} tone={tone} exploded={exploded} progress={progress} reduced={reduced} mobile={mobile}/>}</Suspense></SceneBoundary></div>
     <span className="scene-label">{label} <span> / Digital material study</span></span>
-    {mobile&&!mobile3d?<button className="mobile-3d-launch" type="button" onClick={()=>setMobile3d(true)}>Explore in 3D <span>+</span></button>:interactive&&<div className="scene-controls"><div className="swatches" aria-label="Preview metal finish">{[['#d9b56d','Yellow gold'],['#d5d7dc','White gold'],['#d4a18b','Rose gold']].map(([color,name])=><button type="button" key={color} style={{background:color}} aria-label={name} aria-pressed={tone===color} onClick={()=>setTone(color)}/>)}</div><button className="study-toggle" aria-pressed={exploded} onClick={()=>setExploded(!exploded)}>{exploded?'Assembled form':'Explore the layers'} <span>{exploded?'−':'+'}</span></button></div>}
+    {mobile&&!mobile3d?<button className="mobile-3d-launch" type="button" onClick={()=>setMobile3d(true)}>Explore in 3D <span>+</span></button>:interactive&&<div className="scene-controls"><div className="swatches" aria-label="Preview metal finish">{[['#dfba53','24K Imperial Gold'],['#f5d372','22K Radiance Gold'],['#d5d7dc','18K White Gold'],['#e0a894','18K Rose Gold']].map(([color,name])=><button type="button" key={color} style={{background:color}} aria-label={name} aria-pressed={tone===color} onClick={()=>setTone(color)}/>)}</div><button className="study-toggle" aria-pressed={exploded} onClick={()=>setExploded(!exploded)}>{exploded?'Assembled form':'Explore the layers'} <span>{exploded?'−':'+'}</span></button></div>}
   </div>
 }
 export function ExperienceMotion(){

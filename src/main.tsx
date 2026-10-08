@@ -1,38 +1,794 @@
 import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
-import { ArrowUpRight, Menu, Search, X, ArrowRight, ChevronDown } from 'lucide-react'
+import { ArrowUpRight, Search, X, ArrowRight, ChevronDown, Sparkles } from 'lucide-react'
 import './styles.css'
 import './experience.css'
 import { SceneStage, ExperienceMotion } from './Experience'
+import { GoldWaveCanvas } from './GoldWaveCanvas'
+import { GoldWaveDivider } from './GoldWaveDivider'
+import { AtelierMenu } from './AtelierMenu'
 
-type Design = { id: string; name: string; jewelleryCategory: string; subCategory: string; designCategory: 'Plain Gold' | 'Studded' | 'Laser Cut' | 'God-Based'; designMethod: 'Manual' | 'CAD'; technique?: 'Casting' | 'Paper Casting' | 'Laser Cut'; shortDescription: string; image: string }
+type Design = {
+  id: string
+  name: string
+  jewelleryCategory: string
+  subCategory: string
+  designCategory: 'Plain Gold' | 'Studded' | 'Laser Cut' | 'God-Based'
+  designMethod: 'Manual' | 'CAD'
+  technique?: 'Casting' | 'Paper Casting' | 'Laser Cut'
+  shortDescription: string
+  image: string
+}
+
 const img = (id: string, w = 1200) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=85`
-const designs: Design[] = [
-  {id:'aura',name:'Aura Jhumka',jewelleryCategory:'Earrings',subCategory:'Jhumkas',designCategory:'Plain Gold',designMethod:'Manual',technique:'Casting',shortDescription:'A study in weight, rhythm and ornamental movement.',image:img('photo-1617038220319-276d3cfab638')},
-  {id:'solace',name:'Solace Ring',jewelleryCategory:'Rings',subCategory:'Ladies Ring',designCategory:'Studded',designMethod:'CAD',shortDescription:'A compact composition shaped around luminous detail.',image:img('photo-1605100804763-247f67b3557e')},
-  {id:'vahana',name:'Vahana Pendant',jewelleryCategory:'Pendants',subCategory:'God Pendant',designCategory:'God-Based',designMethod:'Manual',technique:'Paper Casting',shortDescription:'Traditional inspiration interpreted through a contemporary hand.',image:img('photo-1599643478518-a784e5dc4c8f')},
-  {id:'linea',name:'Linea Bangle',jewelleryCategory:'Bangles',subCategory:'Flexible Bangle',designCategory:'Laser Cut',designMethod:'CAD',technique:'Laser Cut',shortDescription:'Openwork geometry made for light and movement.',image:img('photo-1515562141207-7a88fb7ce338')},
-  {id:'monsoon',name:'Monsoon Haaram',jewelleryCategory:'Haaram',subCategory:'Long Haaram',designCategory:'Plain Gold',designMethod:'Manual',shortDescription:'Layered proportions with a quiet, ceremonial presence.',image:img('photo-1601121141461-9d6647bca1ed')},
-  {id:'coda',name:'Coda Bracelet',jewelleryCategory:'Bracelets',subCategory:'Ladies Bracelet',designCategory:'Studded',designMethod:'CAD',shortDescription:'An articulated study of structure and brilliance.',image:img('photo-1535632066927-ab7c9ab60908')},
-]
-const taxonomy = [{name:'Earrings', subs:'Studs · Stud Drops · Jhumkas · Chandbali'}, {name:'Rings',subs:'Ladies · Gents · God · Vanki · Couple'}, {name:'Bracelets',subs:'Ladies · Gents'}, {name:'Bangles',subs:'Round · Kada · Flexible'}, {name:'Pendants',subs:'Ladies · God · Kids · Double Naka'}, {name:'Necklaces',subs:'Short · Full'}, {name:'Mugappu',subs:'Fancy · God'}, {name:'Haaram',subs:'Short · Long'}]
 
-function Header({onSearch}:{onSearch:()=>void}) { const [open,setOpen]=useState(false); const links=['About','Capabilities','Jewellery','Designs','Portfolio','Custom Design']; return <><header><a className="wordmark" href="#top">ATELIER <i>Ø</i></a><nav>{links.map(x=><a key={x} href={`#${x.toLowerCase().replaceAll(' ','-')}`}>{x}{x==='Jewellery'&&<ChevronDown size={13}/>}</a>)}</nav><div className="head-actions"><button aria-label="Search" onClick={onSearch}><Search size={19}/></button><a className="enquire" href="#contact">Enquire <ArrowUpRight size={15}/></a><button className="menu" aria-label="Open menu" onClick={()=>setOpen(true)}><Menu/></button></div></header><AnimatePresence>{open&&<motion.div className="mobile-menu" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><button onClick={()=>setOpen(false)} aria-label="Close"><X/></button><span>Navigation</span>{links.map((x,i)=><a onClick={()=>setOpen(false)} href={`#${x.toLowerCase().replaceAll(' ','-')}`} key={x}><em>0{i+1}</em>{x}</a>)}<a className="gold-link" href="#contact" onClick={()=>setOpen(false)}>Start an enquiry <ArrowUpRight/></a></motion.div>}</AnimatePresence></> }
-function Eyebrow({children}:{children:React.ReactNode}) {return <div className="eyebrow"><span></span>{children}</div>}
-function DesignCard({design,onClick}:{design:Design,onClick:()=>void}) {return <motion.article initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.12}} transition={{duration:.65}} whileHover={{y:-6}} className="design-card" role="button" onClick={onClick} tabIndex={0} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onClick()}}}><div className="image-wrap"><img src={design.image} alt={`${design.name}, ${design.jewelleryCategory} design`} loading="lazy"/><div className="view">View design <ArrowUpRight size={16}/></div></div><div className="card-copy"><h3>{design.name}</h3><p>{design.jewelleryCategory} · {design.designCategory}</p></div></motion.article>}
-function EnquiryForm(){return <form className="enquiry-form" onSubmit={e=>{e.preventDefault();alert('Thank you — your enquiry is ready to be connected to the atelier inbox.')}}><div><label>Name <b>*</b><input required placeholder="Your name"/></label><label>Company<input placeholder="Company name (optional)"/></label></div><div><label>Email <b>*</b><input type="email" required placeholder="name@example.com"/></label><label>Jewellery category<select defaultValue=""><option value="" disabled>Select a category</option>{taxonomy.map(t=><option key={t.name}>{t.name}</option>)}</select></label></div><label>Message <b>*</b><textarea required placeholder="Tell us about your requirement, reference or design idea."/></label><button className="gold-button">Submit enquiry <ArrowRight size={17}/></button></form>}
-function App(){ const [search,setSearch]=useState(false); const [query,setQuery]=useState(''); const [selected,setSelected]=useState<Design|null>(null); const [filter,setFilter]=useState('All'); const [scrolled,setScrolled]=useState(false); useEffect(()=>{const f=()=>setScrolled(scrollY>40);addEventListener('scroll',f);return()=>removeEventListener('scroll',f)},[]); const filtered=designs.filter(d=>(filter==='All'||d.designCategory===filter||d.designMethod===filter)&&d.name.toLowerCase().includes(query.toLowerCase())); return <div id="top" className={scrolled?'scrolled':''}><ExperienceMotion/><Header onSearch={()=>setSearch(true)}/><main>
-<section className="hero premium-hero"><div className="hero-grain"/><SceneStage kind="hero" label="Form / 001" interactive={false}/><div className="hero-content"><motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{duration:.8}}>JEWELLERY DESIGN STUDIO</motion.p><motion.h1 initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{duration:1,delay:.15}}>The art<br/>of <i>detail.</i></motion.h1><motion.a className="hero-explore" href="#portfolio" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}}>Explore the collection <ArrowUpRight size={18}/></motion.a></div><a className="hero-scroll" href="#about"><span>SCROLL TO DISCOVER</span><span>↓</span></a><span className="hero-edition">MANUAL & CAD / DESIGN ATELIER</span></section>
-<section id="about" className="intro section"><div><Eyebrow>OUR APPROACH</Eyebrow><h2>From an idea to a design<br/>ready to be explored.</h2></div><div className="intro-side"><p>Jewellery design combines creativity, proportion, detailing and an understanding of how a piece can ultimately be produced. Our portfolio brings together Manual and CAD design capabilities across a wide range of jewellery categories and specialised design techniques.</p><a className="text-link dark" href="#capabilities">Discover our approach <ArrowUpRight/></a></div><img src={img('photo-1515562141207-7a88fb7ce338')} alt="Gold jewellery detail in a warm studio" loading="lazy"/></section>
-<section id="capabilities" className="capabilities"><SceneStage kind="craft" label="01 / Anatomy of a design"/><div className="cap-intro"><Eyebrow>DESIGN CAPABILITIES</Eyebrow><p>Every method brings a different possibility to the work.</p></div>{[['01','Manual Design','Craft begins with a line.','Explore jewellery concepts developed through manual design techniques, where form, proportion and decorative detailing begin through the designer’s hand.'],['02','CAD Design','Precision translated digitally.','Jewellery concepts developed using CAD design workflows for precise visualisation and detailed design development.'],['03','Casting','Design shaped for production.','Form considered with the production journey in mind.'],['04','Paper Casting','Exploring form through specialised techniques.','Tactile design thinking developed through a distinct process.'],['05','Laser Cut','Intricate detail. Precise execution.','Contemporary ornamental patterns developed around laser-cut possibilities.']].map((c,i)=><article className={`capability cap-${i}`} key={c[0]}><span>{c[0]}</span><div><h3>{c[1]}</h3><h2>{c[2]}</h2></div><p>{c[3]}</p></article>)}</section>
-<section id="designs" className="section design-types"><Eyebrow>DESIGN LANGUAGES</Eyebrow><h2>Distinct design languages,<br/><i>one considered process.</i></h2><div className="type-grid">{[['Plain Gold Jewellery','Pure form. Intricate detail.'],['Studded Jewellery','Designed around brilliance.'],['Laser Cut Jewellery','Precision becomes ornament.'],['God-Based Jewellery','Traditional inspiration, interpreted through design.']].map((x,i)=><a href="#portfolio" onClick={()=>setFilter(['Plain Gold','Studded','Laser Cut','God-Based'][i])} className={`type type-${i}`} key={x[0]}><span>0{i+1}</span><div><h3>{x[0]}</h3><p>{x[1]}</p><ArrowUpRight/></div></a>)}</div></section>
-<section id="jewellery" className="jewellery-section"><div className="jewellery-title"><Eyebrow>EXPLORE BY JEWELLERY</Eyebrow><h2>Designs for every<br/>expression of form.</h2><p>From a close-set stud to a ceremonial haaram, each category offers its own language of proportion, scale and detail.</p></div><SceneStage kind="collection" label="02 / Material & proportion"/><div className="category-list">{taxonomy.map((t,i)=><a href="#portfolio" key={t.name}><em>0{i+1}</em><strong>{t.name}</strong><span>{t.subs}</span><ArrowUpRight/></a>)}</div></section>
-<section id="portfolio" className="section portfolio"><div className="portfolio-top"><div><Eyebrow>SELECTED WORK</Eyebrow><h2>A closer look at<br/>our design portfolio.</h2></div><p>Explore form, material and detail.<br/><small>Illustrative references — client portfolio photography to follow.</small></p></div><div className="filters">{['All','Plain Gold','Studded','Laser Cut','God-Based','Manual','CAD'].map(x=><button className={filter===x?'active':''} onClick={()=>setFilter(x)} key={x}>{x}</button>)}</div><div className="masonry">{filtered.map(d=><DesignCard design={d} onClick={()=>setSelected(d)} key={d.id}/>)}</div></section>
-<section className="journey"><SceneStage kind="journey" label="03 / From line to volume"/><div><Eyebrow>DESIGN JOURNEY</Eyebrow><h2>From thought<br/>to <i>form.</i></h2></div><p>Design is an ongoing exchange between inspiration, construction and detail. Each route begins with a conversation.</p><span>01 — Understand<br/>02 — Explore<br/>03 — Develop<br/>04 — Review</span></section>
-<section id="custom-design" className="custom"><SceneStage kind="custom" label="04 / Your next possibility"/><div className="custom-content"><Eyebrow>CUSTOM DESIGN</Eyebrow><h2>Have a design<br/>in mind?</h2><p>Share your jewellery category, requirement or reference with us and start a conversation around your design.</p><a href="#contact" className="button-light">Discuss your requirement <ArrowRight/></a><a href="#contact" className="text-link">Upload a reference <ArrowUpRight/></a></div></section>
-<section id="contact" className="contact section"><div><Eyebrow>START A CONVERSATION</Eyebrow><h2>Let’s discuss your<br/>requirement.</h2><p>Whether you have a specific design in mind or an early idea to explore, begin the conversation here.</p><small>Contact details will be added when supplied.</small></div><EnquiryForm/></section>
-</main><footer><a className="wordmark" href="#top">ATELIER <i>Ø</i></a><div><p>Jewellery design studio</p><p>Manual design · CAD design · specialised techniques</p></div><div className="footer-links"><a href="#about">About</a><a href="#capabilities">Capabilities</a><a href="#jewellery">Jewellery</a><a href="#portfolio">Portfolio</a><a href="#contact">Enquire</a></div><p className="placeholder">[CONTACT INFORMATION TO BE SUPPLIED]</p></footer>
-<AnimatePresence>{selected&&<motion.div className="modal" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setSelected(null)} role="dialog" aria-modal="true"><button aria-label="Close design detail" onClick={()=>setSelected(null)}><X/></button><motion.div className="design-detail" initial={{scale:.96,y:20}} animate={{scale:1,y:0}} onClick={e=>e.stopPropagation()}><img src={selected.image} alt={selected.name}/><div><Eyebrow>{selected.jewelleryCategory} / {selected.subCategory}</Eyebrow><h2>{selected.name}</h2><p>{selected.shortDescription}</p><dl><dt>Design category</dt><dd>{selected.designCategory}</dd><dt>Design method</dt><dd>{selected.designMethod} Design</dd>{selected.technique&&<><dt>Technique</dt><dd>{selected.technique}</dd></>}</dl><a className="gold-button" href="#contact" onClick={()=>setSelected(null)}>Enquire about this design <ArrowRight/></a></div></motion.div></motion.div>}</AnimatePresence>
-<AnimatePresence>{search&&<motion.div className="search-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><button onClick={()=>setSearch(false)} aria-label="Close search"><X/></button><div><Eyebrow>SEARCH THE PORTFOLIO</Eyebrow><input autoFocus placeholder="Design name, category or technique" value={query} onChange={e=>setQuery(e.target.value)}/><div className="search-results">{designs.filter(d=>(d.name+d.jewelleryCategory+d.designCategory).toLowerCase().includes(query.toLowerCase())).map(d=><button key={d.id} onClick={()=>{setSearch(false);setSelected(d)}}><img src={d.image} alt=""/><span>{d.name}<small>{d.jewelleryCategory} · {d.designCategory}</small></span><ArrowUpRight/></button>)}</div></div></motion.div>}</AnimatePresence></div> }
-createRoot(document.getElementById('root')!).render(<MotionConfig reducedMotion="user"><App /></MotionConfig>)
+const designs: Design[] = [
+  {
+    id: 'aura',
+    name: 'Aura Jhumka',
+    jewelleryCategory: 'Earrings',
+    subCategory: 'Jhumkas',
+    designCategory: 'Plain Gold',
+    designMethod: 'Manual',
+    technique: 'Casting',
+    shortDescription: 'A 24K master study in weight, rhythm and ceremonial ornamental movement.',
+    image: img('photo-1617038220319-276d3cfab638'),
+  },
+  {
+    id: 'solace',
+    name: 'Solace Ring',
+    jewelleryCategory: 'Rings',
+    subCategory: 'Ladies Ring',
+    designCategory: 'Studded',
+    designMethod: 'CAD',
+    shortDescription: 'A compact 22K gold composition shaped around luminous pavé brilliance.',
+    image: img('photo-1605100804763-247f67b3557e'),
+  },
+  {
+    id: 'vahana',
+    name: 'Vahana Pendant',
+    jewelleryCategory: 'Pendants',
+    subCategory: 'God Pendant',
+    designCategory: 'God-Based',
+    designMethod: 'Manual',
+    technique: 'Paper Casting',
+    shortDescription: 'Sacred temple jewellery iconography reinterpreted through high-relief hand engraving.',
+    image: img('photo-1599643478518-a784e5dc4c8f'),
+  },
+  {
+    id: 'linea',
+    name: 'Linea Bangle',
+    jewelleryCategory: 'Bangles',
+    subCategory: 'Flexible Bangle',
+    designCategory: 'Laser Cut',
+    designMethod: 'CAD',
+    technique: 'Laser Cut',
+    shortDescription: 'Precision 22K openwork geometry made for refractive light and fluid movement.',
+    image: img('photo-1515562141207-7a88fb7ce338'),
+  },
+  {
+    id: 'monsoon',
+    name: 'Monsoon Haaram',
+    jewelleryCategory: 'Haaram',
+    subCategory: 'Long Haaram',
+    designCategory: 'Plain Gold',
+    designMethod: 'Manual',
+    shortDescription: 'Layered gold cascades with quiet majesty and heritage royal presence.',
+    image: img('photo-1601121141461-9d6647bca1ed'),
+  },
+  {
+    id: 'coda',
+    name: 'Coda Bracelet',
+    jewelleryCategory: 'Bracelets',
+    subCategory: 'Ladies Bracelet',
+    designCategory: 'Studded',
+    designMethod: 'CAD',
+    shortDescription: 'An articulated study of structural gold mesh and diamond accents.',
+    image: img('photo-1535632066927-ab7c9ab60908'),
+  },
+]
+
+const taxonomy = [
+  { name: 'Earrings', subs: 'Studs · Stud Drops · Jhumkas · Chandbali' },
+  { name: 'Rings', subs: 'Ladies · Gents · God · Vanki · Couple' },
+  { name: 'Bracelets', subs: 'Ladies · Gents' },
+  { name: 'Bangles', subs: 'Round · Kada · Flexible' },
+  { name: 'Pendants', subs: 'Ladies · God · Kids · Double Naka' },
+  { name: 'Necklaces', subs: 'Short · Full' },
+  { name: 'Mugappu', subs: 'Fancy · God' },
+  { name: 'Haaram', subs: 'Short · Long' },
+]
+
+function Header({
+  onSearch,
+  onOpenMenu,
+}: {
+  onSearch: () => void
+  onOpenMenu: () => void
+}) {
+  const links = ['About', 'Capabilities', 'Jewellery', 'Designs', 'Portfolio', 'Custom Design']
+
+  return (
+    <header>
+      <a className="wordmark" href="#top">
+        <span className="gold-sparkle-icon">✦</span> ATELIER <i>Ø</i>
+      </a>
+
+      <nav>
+        {links.map((x) => (
+          <a key={x} href={`#${x.toLowerCase().replaceAll(' ', '-')}`}>
+            {x}
+            {x === 'Jewellery' && <ChevronDown size={13} />}
+          </a>
+        ))}
+      </nav>
+
+      <div className="head-actions">
+        <button
+          aria-label="Search designs"
+          onClick={onSearch}
+          title="Search Atelier Portfolio"
+        >
+          <Search size={17} />
+        </button>
+
+        <a className="enquire" href="#contact">
+          Enquire <ArrowUpRight size={14} />
+        </a>
+
+        {/* Creative Menu Button (Desktop & Mobile) */}
+        <button
+          className="creative-menu-trigger"
+          aria-label="Open Atelier Menu"
+          onClick={onOpenMenu}
+        >
+          <Sparkles size={13} />
+          <span>Atelier Menu</span>
+        </button>
+      </div>
+    </header>
+  )
+}
+
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="eyebrow">
+      <span />
+      {children}
+    </div>
+  )
+}
+
+function DesignCard({
+  design,
+  onClick,
+}: {
+  design: Design
+  onClick: () => void
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.65 }}
+      whileHover={{ y: -6 }}
+      className="design-card"
+      role="button"
+      onClick={onClick}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick()
+        }
+      }}
+    >
+      <div className="image-wrap">
+        <img
+          src={design.image}
+          alt={`${design.name}, ${design.jewelleryCategory} design`}
+          loading="lazy"
+        />
+        <div className="view">
+          View Gold Study <ArrowUpRight size={15} />
+        </div>
+      </div>
+      <div className="card-copy">
+        <h3>{design.name}</h3>
+        <p>
+          {design.jewelleryCategory} · {design.designCategory}
+        </p>
+      </div>
+    </motion.article>
+  )
+}
+
+function EnquiryForm() {
+  return (
+    <form
+      className="enquiry-form"
+      onSubmit={(e) => {
+        e.preventDefault()
+        alert('Thank you — your bespoke enquiry has been sent to the Atelier desk.')
+      }}
+    >
+      <div>
+        <label>
+          Name <b>*</b>
+          <input required placeholder="Your full name" />
+        </label>
+        <label>
+          Company / Brand
+          <input placeholder="Company name (optional)" />
+        </label>
+      </div>
+      <div>
+        <label>
+          Email Address <b>*</b>
+          <input type="email" required placeholder="name@luxury-brand.com" />
+        </label>
+        <label>
+          Jewellery Category
+          <select defaultValue="">
+            <option value="" disabled>
+              Select a category
+            </option>
+            {taxonomy.map((t) => (
+              <option key={t.name}>{t.name}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <label>
+        Design Specifications <b>*</b>
+        <textarea
+          required
+          placeholder="Share your jewellery requirement, karat preference (24K / 22K / 18K), weight estimate, or design reference."
+        />
+      </label>
+      <button className="gold-button">
+        Submit Bespoke Request <ArrowRight size={16} />
+      </button>
+    </form>
+  )
+}
+
+function App() {
+  const [search, setSearch] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<Design | null>(null)
+  const [filter, setFilter] = useState('All')
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const filtered = designs.filter(
+    (d) =>
+      (filter === 'All' || d.designCategory === filter || d.designMethod === filter) &&
+      (d.name + d.jewelleryCategory + d.designCategory)
+        .toLowerCase()
+        .includes(query.toLowerCase())
+  )
+
+  const handleFilterSelect = (newFilter: string) => {
+    setFilter(newFilter)
+    const portfolioElem = document.getElementById('portfolio')
+    if (portfolioElem) {
+      portfolioElem.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  return (
+    <div id="top" className={scrolled ? 'scrolled' : ''}>
+      <ExperienceMotion />
+
+      {/* Primary Header */}
+      <Header
+        onSearch={() => setSearch(true)}
+        onOpenMenu={() => setMenuOpen(true)}
+      />
+
+      {/* Creative Atelier Luxury Menu Overlay */}
+      <AtelierMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onSelectCategory={handleFilterSelect}
+      />
+
+      <main>
+        {/* ================= HERO SECTION WITH FLUID GOLD WAVES ================= */}
+        <section className="hero premium-hero">
+          {/* Ambient Lighting & Meshes */}
+          <div className="hero-ambient-lights" />
+
+          {/* Interactive Liquid Gold Waves in Hero */}
+          <div className="hero-wave-wrapper">
+            <GoldWaveCanvas
+              waveCount={4}
+              speed={1.1}
+              opacity={0.45}
+              interactive={true}
+            />
+          </div>
+
+          {/* 3D Gold Jewellery Sculpture */}
+          <SceneStage kind="hero" label="24K Sculptural Study / 001" interactive={false} />
+
+          {/* Hero Content */}
+          <div className="hero-content">
+            <motion.div
+              className="hero-badge-gold"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <span>✦</span> HAUTE GOLD JEWELLERY ATELIER
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.15 }}
+            >
+              The poetry<br />
+              of <i>pure gold.</i>
+            </motion.h1>
+
+            <div className="hero-actions-group">
+              <motion.a
+                className="hero-explore"
+                href="#portfolio"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                Explore Selected Works <ArrowUpRight size={16} />
+              </motion.a>
+
+              <motion.button
+                type="button"
+                className="hero-menu-cta"
+                onClick={() => setMenuOpen(true)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.55 }}
+              >
+                <Sparkles size={13} />
+                Open Atelier Menu
+              </motion.button>
+            </div>
+          </div>
+
+          <a className="hero-scroll" href="#about">
+            <span>DISCOVER THE ATELIER</span>
+            <span>↓</span>
+          </a>
+
+          <span className="hero-edition">24K & 22K SOLID GOLD ARCHIVE</span>
+        </section>
+
+        {/* Liquid Gold Wave Transition */}
+        <GoldWaveDivider />
+
+        {/* ================= ABOUT / PHILOSOPHY ================= */}
+        <section id="about" className="intro section">
+          <div>
+            <Eyebrow>OUR PHILOSOPHY</Eyebrow>
+            <h2>
+              From raw gold lines to<br />
+              <i>sculptural magnificence.</i>
+            </h2>
+          </div>
+          <div className="intro-side">
+            <p>
+              Jewellery design combines creativity, proportion, detailing and an understanding of
+              how pure gold breathes under the artisan’s flame. Our atelier unites Manual freehand
+              sketches and high-precision CAD engineering across heirloom jewellery categories and
+              specialised casting techniques.
+            </p>
+            <a className="text-link" href="#capabilities">
+              Discover Craft Capabilities <ArrowUpRight size={14} />
+            </a>
+          </div>
+          <img
+            src={img('photo-1515562141207-7a88fb7ce338')}
+            alt="Gold jewellery detail in a warm studio"
+            loading="lazy"
+          />
+        </section>
+
+        {/* Wave Divider */}
+        <GoldWaveDivider flip subtle />
+
+        {/* ================= CAPABILITIES ================= */}
+        <section id="capabilities" className="capabilities">
+          <SceneStage kind="craft" label="01 / Anatomy of Gold Craft" />
+          <div className="cap-intro">
+            <div>
+              <Eyebrow>DESIGN CAPABILITIES</Eyebrow>
+              <p>Every discipline expands the horizon of precious form.</p>
+            </div>
+          </div>
+
+          {[
+            [
+              '01',
+              'Manual Drafting',
+              'Craft begins with a pure line.',
+              'Original jewellery concepts developed by hand, where balance, ergonomics and ceremonial detailing take shape through the master artisan’s pencil.',
+            ],
+            [
+              '02',
+              'CAD Precision Engineering',
+              'Micron-level digital symmetry.',
+              'Complex three-dimensional jewellery models engineered in CAD for accurate weight estimation, stone setting clearance, and flawless manufacturing.',
+            ],
+            [
+              '03',
+              'Vacuum & Centrifugal Casting',
+              'Molten gold shaped for endurance.',
+              'Structural hollows, spruing pathways, and wall thickness engineered to preserve structural density while maximizing surface luster.',
+            ],
+            [
+              '04',
+              'Specialised Paper Casting',
+              'Tactile relief & sacred textures.',
+              'Heritage artisanal methods that capture delicate temple reliefs and organic surfaces unreachable by machine alone.',
+            ],
+            [
+              '05',
+              'Laser Cut Filigree',
+              'Geometric openwork & brilliance.',
+              'Intricate contemporary openwork patterns laser-cut into solid gold sheets for dramatic weight-to-visual ratio.',
+            ],
+          ].map((c, i) => (
+            <article className={`capability cap-${i}`} key={c[0]}>
+              <span>{c[0]}</span>
+              <div>
+                <h3>{c[1]}</h3>
+                <h2>{c[2]}</h2>
+              </div>
+              <p>{c[3]}</p>
+            </article>
+          ))}
+        </section>
+
+        {/* Wave Divider */}
+        <GoldWaveDivider />
+
+        {/* ================= DESIGN LANGUAGES ================= */}
+        <section id="designs" className="section design-types">
+          <Eyebrow>DESIGN LANGUAGES</Eyebrow>
+          <h2>
+            Four distinct dialects,<br />
+            <i>one golden heritage.</i>
+          </h2>
+          <div className="type-grid">
+            {[
+              ['Plain Gold Jewellery', 'Pure form. Undiluted luster & weight.'],
+              ['Studded Jewellery', 'Designed around pavé brilliance & prong geometry.'],
+              ['Laser Cut Jewellery', 'Precision filigree becomes modern ornament.'],
+              ['God-Based Jewellery', 'Sacred iconography interpreted for posterity.'],
+            ].map((x, i) => {
+              const catName = ['Plain Gold', 'Studded', 'Laser Cut', 'God-Based'][i]
+              return (
+                <a
+                  href="#portfolio"
+                  onClick={() => handleFilterSelect(catName)}
+                  className={`type type-${i}`}
+                  key={x[0]}
+                >
+                  <span>0{i + 1} // CHAPTER</span>
+                  <div>
+                    <div>
+                      <h3>{x[0]}</h3>
+                      <p>{x[1]}</p>
+                    </div>
+                    <ArrowUpRight size={22} />
+                  </div>
+                </a>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* Wave Divider */}
+        <GoldWaveDivider flip />
+
+        {/* ================= JEWELLERY TAXONOMIES ================= */}
+        <section id="jewellery" className="jewellery-section">
+          <div className="jewellery-title">
+            <Eyebrow>CURATED JEWELLERY</Eyebrow>
+            <h2>
+              Designs for every<br />
+              expression of form.
+            </h2>
+            <p>
+              From a close-set stud to an opulent ceremonial haaram, each category possesses its
+              own architectural grammar, hinge movement, and drape.
+            </p>
+          </div>
+          <SceneStage kind="collection" label="02 / Material & Proportion" />
+          <div className="category-list">
+            {taxonomy.map((t, i) => (
+              <a
+                href="#portfolio"
+                key={t.name}
+                onClick={() => handleFilterSelect('All')}
+              >
+                <em>0{i + 1}</em>
+                <strong>{t.name}</strong>
+                <span>{t.subs}</span>
+                <ArrowUpRight size={17} />
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* Wave Divider */}
+        <GoldWaveDivider subtle />
+
+        {/* ================= PORTFOLIO ================= */}
+        <section id="portfolio" className="section portfolio">
+          <div className="portfolio-top">
+            <div>
+              <Eyebrow>SELECTED WORKS</Eyebrow>
+              <h2>
+                A closer study of<br />
+                our gold portfolio.
+              </h2>
+            </div>
+            <p>
+              Interactive archives of physical form, CAD renders, and cast golds.
+              <br />
+              <small>Click any piece for detailed metallurgical notes.</small>
+            </p>
+          </div>
+
+          <div className="filters">
+            {['All', 'Plain Gold', 'Studded', 'Laser Cut', 'God-Based', 'Manual', 'CAD'].map((x) => (
+              <button
+                className={filter === x ? 'active' : ''}
+                onClick={() => setFilter(x)}
+                key={x}
+              >
+                {x}
+              </button>
+            ))}
+          </div>
+
+          <div className="masonry">
+            {filtered.map((d) => (
+              <DesignCard design={d} onClick={() => setSelected(d)} key={d.id} />
+            ))}
+          </div>
+        </section>
+
+        {/* Wave Divider */}
+        <GoldWaveDivider flip />
+
+        {/* ================= DESIGN JOURNEY ================= */}
+        <section id="journey" className="journey">
+          <SceneStage kind="journey" label="03 / From Line to Volume" />
+          <div>
+            <Eyebrow>THE CREATIVE JOURNEY</Eyebrow>
+            <h2>
+              From concept<br />
+              to <i>solid form.</i>
+            </h2>
+          </div>
+          <p>
+            Every commission begins with an open exchange between design inspiration, ergonomic
+            testing, and computational modeling.
+          </p>
+          <span>
+            01 — Architectural Concept Brief<br />
+            02 — Hand Sketches & Proportions<br />
+            03 — Digital CAD & Prototype Cast<br />
+            04 — Final Hallmark & Finish
+          </span>
+        </section>
+
+        {/* Wave Divider */}
+        <GoldWaveDivider />
+
+        {/* ================= CUSTOM BESPOKE ================= */}
+        <section id="custom-design" className="custom">
+          <SceneStage kind="custom" label="04 / Bespoke Possibilities" />
+          <div className="custom-content">
+            <Eyebrow>BESPOKE COMMISSIONS</Eyebrow>
+            <h2>
+              Have a golden design<br />
+              in mind?
+            </h2>
+            <p>
+              Share your jewellery category, karat specifications or heirloom reference with us to
+              initiate a dedicated private CAD study.
+            </p>
+            <a href="#contact" className="button-light">
+              Discuss Your Project <ArrowRight size={15} />
+            </a>
+          </div>
+        </section>
+
+        {/* Wave Divider */}
+        <GoldWaveDivider flip subtle />
+
+        {/* ================= CONTACT & ENQUIRY ================= */}
+        <section id="contact" className="contact section">
+          <div>
+            <Eyebrow>COMMISSION DESK</Eyebrow>
+            <h2>
+              Let’s discuss your<br />
+              next piece.
+            </h2>
+            <p>
+              Whether you need CAD support for an existing manufacturing line or a bespoke bridal
+              collection, begin the conversation with our design team.
+            </p>
+            <small>Direct replies within 24 business hours.</small>
+          </div>
+          <EnquiryForm />
+        </section>
+      </main>
+
+      {/* ================= FOOTER ================= */}
+      <footer>
+        <div>
+          <a className="wordmark" href="#top">
+            <span className="gold-sparkle-icon">✦</span> ATELIER <i>Ø</i>
+          </a>
+          <p style={{ marginTop: '16px' }}>Haute Jewellery Design Studio</p>
+          <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>
+            24K & 22K Solid Gold • Manual & CAD Systems
+          </span>
+        </div>
+
+        <div>
+          <p>Artisanal Integrity</p>
+          <p style={{ fontSize: '14px', fontFamily: 'Manrope', color: 'var(--text-muted)' }}>
+            Bridging age-old Indian goldsmithing traditions with modern digital engineering.
+          </p>
+        </div>
+
+        <div className="footer-links">
+          <a href="#about">The Atelier</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#jewellery">Jewellery</a>
+          <a href="#designs">Languages</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#contact">Enquire</a>
+        </div>
+
+        <p className="placeholder">
+          ATELIER Ø COPYRIGHT © 2026. ALL RIGHTS RESERVED. HALLMARKED GOLD CRAFT ARCHIVE.
+        </p>
+      </footer>
+
+      {/* ================= DESIGN DETAIL MODAL ================= */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            className="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelected(null)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <button
+              aria-label="Close design detail"
+              onClick={() => setSelected(null)}
+            >
+              <X size={20} />
+            </button>
+            <motion.div
+              className="design-detail"
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img src={selected.image} alt={selected.name} />
+              <div>
+                <Eyebrow>
+                  {selected.jewelleryCategory} / {selected.subCategory}
+                </Eyebrow>
+                <h2>{selected.name}</h2>
+                <p>{selected.shortDescription}</p>
+                <dl>
+                  <dt>Design Category</dt>
+                  <dd>{selected.designCategory}</dd>
+                  <dt>Design Method</dt>
+                  <dd>{selected.designMethod} Design</dd>
+                  {selected.technique && (
+                    <>
+                      <dt>Casting Technique</dt>
+                      <dd>{selected.technique}</dd>
+                    </>
+                  )}
+                  <dt>Purity Standard</dt>
+                  <dd>22K / 24K Hallmarked Solid Gold</dd>
+                </dl>
+                <a
+                  className="gold-button"
+                  href="#contact"
+                  onClick={() => setSelected(null)}
+                >
+                  Enquire About This Design <ArrowRight size={16} />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ================= SEARCH OVERLAY ================= */}
+      <AnimatePresence>
+        {search && (
+          <motion.div
+            className="search-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <button
+              onClick={() => setSearch(false)}
+              aria-label="Close search"
+            >
+              <X size={20} />
+            </button>
+            <div>
+              <Eyebrow>SEARCH THE GOLD ATELIER ARCHIVE</Eyebrow>
+              <input
+                autoFocus
+                placeholder="Search by name, category, or casting method…"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <div className="search-results">
+                {designs
+                  .filter((d) =>
+                    (d.name + d.jewelleryCategory + d.designCategory)
+                      .toLowerCase()
+                      .includes(query.toLowerCase())
+                  )
+                  .map((d) => (
+                    <button
+                      key={d.id}
+                      onClick={() => {
+                        setSearch(false)
+                        setSelected(d)
+                      }}
+                    >
+                      <img src={d.image} alt={d.name} />
+                      <span>
+                        {d.name}
+                        <small>
+                          {d.jewelleryCategory} · {d.designCategory}
+                        </small>
+                      </span>
+                      <ArrowUpRight size={18} />
+                    </button>
+                  ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+createRoot(document.getElementById('root')!).render(
+  <MotionConfig reducedMotion="user">
+    <App />
+  </MotionConfig>
+)
