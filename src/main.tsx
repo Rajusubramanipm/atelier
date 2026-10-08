@@ -9,6 +9,7 @@ import { GoldHeroSpotlight } from './GoldHeroSpotlight'
 import { GoldWaveDivider } from './GoldWaveDivider'
 import { AtelierMenu } from './AtelierMenu'
 import { GoldCursor } from './GoldCursor'
+import { PullartLogo } from './PullartLogo'
 
 type Design = {
   id: string
@@ -112,8 +113,8 @@ function Header({
 
   return (
     <header>
-      <a className="wordmark" href="#top">
-        <span className="gold-sparkle-icon">✦</span> ATELIER <i>Ø</i>
+      <a className="brand-logo-link" href="#top" title="Pullart Designs — Haute Jewellery Atelier">
+        <PullartLogo size="default" />
       </a>
 
       <nav>
@@ -332,7 +333,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span>✦</span> HAUTE GOLD JEWELLERY ATELIER
+              <span>✦</span> PULLART DESIGNS • HAUTE GOLD JEWELLERY ATELIER
             </motion.div>
 
             <motion.h1
@@ -646,8 +647,8 @@ function App() {
       {/* ================= FOOTER ================= */}
       <footer>
         <div>
-          <a className="wordmark" href="#top">
-            <span className="gold-sparkle-icon">✦</span> ATELIER <i>Ø</i>
+          <a className="brand-logo-link" href="#top" title="Pullart Designs">
+            <PullartLogo size="large" />
           </a>
           <p style={{ marginTop: '16px' }}>Haute Jewellery Design Studio</p>
           <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>
@@ -672,7 +673,7 @@ function App() {
         </div>
 
         <p className="placeholder">
-          ATELIER Ø COPYRIGHT © 2026. ALL RIGHTS RESERVED. HALLMARKED GOLD CRAFT ARCHIVE.
+          PULLART DESIGNS COPYRIGHT © 2026. ALL RIGHTS RESERVED. HALLMARKED GOLD CRAFT ARCHIVE.
         </p>
       </footer>
 
@@ -750,7 +751,7 @@ function App() {
               <X size={20} />
             </button>
             <div>
-              <Eyebrow>SEARCH THE GOLD ATELIER ARCHIVE</Eyebrow>
+              <Eyebrow>SEARCH THE PULLART GOLD ARCHIVE</Eyebrow>
               <input
                 autoFocus
                 placeholder="Search by name, category, or casting method…"

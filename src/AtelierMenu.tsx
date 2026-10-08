@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, ArrowRight, X, Sparkles, Gem, Compass, ShieldCheck } from 'lucide-react'
 import { GoldWaveCanvas } from './GoldWaveCanvas'
+import { PullartLogo } from './PullartLogo'
 
 interface AtelierMenuProps {
   isOpen: boolean
@@ -144,10 +145,9 @@ export function AtelierMenu({ isOpen, onClose, onSelectCategory }: AtelierMenuPr
           {/* Top Bar */}
           <div className="menu-topbar">
             <div className="menu-brand">
-              <span className="gold-sparkle-icon">✦</span>
-              <span className="wordmark">ATELIER <i>Ø</i></span>
+              <PullartLogo size="default" />
               <span className="menu-hallmark-badge">
-                <ShieldCheck size={13} /> 916 & 999 Fine Gold Atelier
+                <ShieldCheck size={13} /> 916 & 999 Fine Gold Certified
               </span>
             </div>
 
@@ -305,7 +305,7 @@ export function AtelierMenu({ isOpen, onClose, onSelectCategory }: AtelierMenuPr
 
           {/* Footer Ribbon */}
           <div className="menu-footer-bar">
-            <span>© ATELIER Ø — FINE GOLD JEWELLERY DESIGN ARCHIVE</span>
+            <span>© PULLART DESIGNS — FINE GOLD JEWELLERY ARCHIVE</span>
             <span>CRAFTED IN 24K & 22K SOLID GOLD PHILOSOPHY</span>
             <div className="menu-quick-shortcuts">
               <a href="#about" onClick={() => handleLinkClick('#about')}>About</a>
