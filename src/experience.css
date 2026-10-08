@@ -304,22 +304,71 @@
   font-size: 14px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 860px) {
   .capabilities {
     display: block;
   }
   .capabilities > .scene-stage {
     position: relative;
     top: auto;
-    height: 360px;
-    margin: 0 0 35px 0;
+    height: 290px;
+    margin: 0 0 28px 0;
+    max-width: 100%;
+    overflow: hidden;
   }
   .jewellery-section > .scene-stage,
   .journey > .scene-stage,
   .custom > .scene-stage {
-    height: 350px;
+    height: 280px;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 12px 0 24px;
   }
+  .scene-stage {
+    max-width: 100%;
+  }
+  /* Theatrical Ambient 3D Backdrop on Mobile Hero — Zero Overflow, Zero Clipping */
   .premium-hero .scene-hero {
-    inset: 38% -6% 4% 18%;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .premium-hero .scene-render {
+    inset: 0;
+  }
+  .premium-hero .scene-poster {
+    object-position: center 40%;
+    filter: contrast(1.1) brightness(0.85);
+  }
+  .premium-hero .scene-label,
+  .premium-hero .mobile-3d-launch {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .capabilities > .scene-stage,
+  .jewellery-section > .scene-stage,
+  .journey > .scene-stage,
+  .custom > .scene-stage {
+    height: 250px;
+  }
+  .scene-controls {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+  .swatches button {
+    width: 28px;
+    height: 28px;
+  }
+  .study-toggle {
+    font-size: 9px;
+    padding: 6px 10px;
   }
 }

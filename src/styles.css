@@ -54,8 +54,11 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  scroll-padding-top: 80px;
   background-color: var(--bg-deep);
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 body {
@@ -64,8 +67,11 @@ body {
   color: var(--text-pure);
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
-  overflow-x: clip;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -2019,98 +2025,608 @@ footer > div p {
 }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN SYSTEM — TOP-NOTCH MOBILE & TABLET SUITE
    -------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
+
+/* Safe Area Insets and Utility classes */
+.hide-on-mobile {
+  display: inline;
+}
+
+/* 1. Tablet Landscape & Intermediate Screens (<= 1100px) */
+@media (max-width: 1100px) {
   header nav {
     display: none;
   }
-  .menu-body-grid {
-    grid-template-columns: 1fr;
-  }
-  .menu-preview-column {
-    display: none;
-  }
-}
-
-@media (max-width: 800px) {
   header {
     padding: 16px 5%;
   }
-  .section {
-    padding: 90px 6%;
-  }
-  .hero-content {
-    width: 100%;
-    padding: 130px 6% 0;
-  }
-  .hero h1 {
-    font-size: clamp(62px, 14vw, 92px);
-  }
-  .intro, .jewellery-section, .contact, .journey, .custom {
+  .menu-body-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
-  .intro > img {
-    grid-column: auto;
-    height: 280px;
+  .menu-preview-card {
+    display: none;
   }
-  .type-grid {
-    grid-template-columns: 1fr;
-  }
-  .masonry {
-    columns: 2;
-    column-gap: 16px;
-  }
-  .capability {
-    grid-template-columns: 35px 1fr;
-    gap: 12px;
-  }
-  .capability > p {
-    grid-column: 2;
-  }
-  .enquiry-form {
-    padding: 28px 20px;
-  }
-  .enquiry-form > div {
-    grid-template-columns: 1fr;
-  }
-  .design-detail {
-    grid-template-columns: 1fr;
-    max-height: 88vh;
-  }
-  .design-detail img {
-    min-height: 260px;
-    height: 300px;
-  }
-  .design-detail > div {
-    padding: 30px 20px;
-  }
-  footer {
-    grid-template-columns: 1fr;
-    padding: 60px 6% 35px;
-  }
-  .placeholder {
-    grid-column: auto;
+  .menu-quick-drawer {
+    margin-top: 10px;
   }
 }
 
-@media (max-width: 480px) {
+/* 2. Tablet Portrait & Mid Screens (<= 860px) */
+@media (max-width: 860px) {
+  /* Prevent iOS Safari auto-zoom on form focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  .section {
+    padding: 80px 5%;
+  }
+
+  /* Hero Banner */
+  .hero.premium-hero {
+    min-height: 100svh;
+    height: auto;
+    padding: 115px 6% 45px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-content {
+    width: 100%;
+    padding: 0;
+    text-align: left;
+    position: relative;
+    z-index: 5;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 12vw, 82px);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    margin: 0 0 24px 0;
+  }
+
+  .hero-badge-gold {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    padding: 6px 14px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  /* Structural Grid Stacks */
+  .intro, .jewellery-section, .contact, .journey, .custom {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .intro > img {
+    grid-column: auto;
+    height: 260px;
+  }
+
+  .type-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .type {
+    min-height: 360px;
+    padding: 30px;
+  }
+
   .masonry {
-    columns: 1;
+    columns: 2;
+    column-gap: 18px;
   }
-  .hero-scroll, .hero-edition {
-    display: none;
+
+  .cap-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 30px;
   }
+
+  .cap-intro p {
+    font-size: 26px;
+  }
+
+  .capability {
+    grid-template-columns: 36px 1fr;
+    gap: 12px 18px;
+    padding: 28px 0;
+  }
+
+  .capability h2 {
+    font-size: 30px;
+  }
+
+  .capability > p {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+    font-size: 13.5px;
+  }
+
+  .portfolio-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .portfolio-top p {
+    width: 100%;
+  }
+
+  .custom-content {
+    padding: 60px 6%;
+  }
+
+  .enquiry-form {
+    padding: 32px 22px;
+  }
+
+  .enquiry-form > div {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .design-detail {
+    grid-template-columns: 1fr;
+    max-height: 90vh;
+  }
+
+  .design-detail img {
+    min-height: 260px;
+    height: 280px;
+  }
+
+  .design-detail > div {
+    padding: 32px 24px;
+  }
+
+  footer {
+    grid-template-columns: 1fr;
+    padding: 60px 6% 35px;
+    gap: 30px;
+  }
+
+  .placeholder {
+    grid-column: auto;
+  }
+
+  .modal {
+    padding: 24px 16px;
+  }
+
+  .search-overlay {
+    padding: 12vh 6% 30px;
+  }
+}
+
+/* 3. Luxury Mobile Phone Suite (<= 640px) */
+@media (max-width: 640px) {
+  /* Helper to hide text on mobile */
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* Header — Clean, balanced, uncrowded luxury */
+  header {
+    padding: max(12px, env(safe-area-inset-top)) 4% 12px;
+  }
+
+  .scrolled header {
+    padding: 10px 4%;
+  }
+
+  .pullart-brand-logo {
+    gap: 8px;
+  }
+
+  .pullart-brand-logo .pullart-jewel-hallmark {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .pullart-brand-logo .pullart-wordmark-title {
+    font-size: 15px !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .pullart-brand-logo .pullart-wordmark-sub {
+    font-size: 6.5px !important;
+    letter-spacing: 0.32em !important;
+    margin-top: 2px !important;
+  }
+
   .head-actions {
     gap: 8px;
   }
-  .head-enquire-btn {
-    padding: 0 14px 0 16px;
-    font-size: 10px;
+
+  .head-search-btn {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
   }
+
+  /* Hide separate enquire button in sticky header on mobile to prevent squishing */
+  .head-enquire-btn {
+    display: none !important;
+  }
+
   .head-menu-btn {
+    height: 38px;
     padding: 0 14px;
     font-size: 10px;
+    gap: 7px;
+    letter-spacing: 0.12em;
+  }
+
+  .menu-btn-sparkle {
+    font-size: 11px;
+  }
+
+  /* Hero Banner on Phones */
+  .hero.premium-hero {
+    padding: max(100px, calc(75px + env(safe-area-inset-top))) 5% 40px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 10.5vw, 56px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin: 0 0 20px 0;
+  }
+
+  .hero-badge-gold {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    padding: 5px 12px;
+    margin-bottom: 16px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-actions-group {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .hero-explore,
+  .hero-menu-cta {
+    width: 100%;
+    justify-content: center;
+    height: 48px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    border-radius: 9999px;
+  }
+
+  .hero-scroll,
+  .hero-edition {
+    display: none !important;
+  }
+
+  /* Atelier Menu Overlay on Phones */
+  .menu-topbar {
+    padding: max(14px, env(safe-area-inset-top)) 4% 14px;
+  }
+
+  .menu-hallmark-badge {
+    display: none !important;
+  }
+
+  .menu-close-btn {
+    height: 38px;
+    padding: 0 10px 0 12px;
+    gap: 8px;
+  }
+
+  .menu-close-btn .close-label {
+    display: none;
+  }
+
+  .close-icon-wrapper {
+    width: 24px;
+    height: 24px;
+  }
+
+  .menu-body-grid {
+    padding: 16px 4% 24px;
+    gap: 22px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu-link-row {
+    padding: 14px 8px;
+    min-height: 52px;
+  }
+
+  .menu-link-num {
+    font-size: 10px;
+    min-width: 20px;
+  }
+
+  .menu-link-title {
+    font-size: clamp(20px, 5.8vw, 26px);
+  }
+
+  .menu-link-sub {
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  /* Hide pill on phones to ensure chapter title and subtitle have ample width */
+  .menu-link-pill {
+    display: none !important;
+  }
+
+  .menu-link-arrow {
+    font-size: 14px;
+  }
+
+  .menu-quick-drawer {
+    padding: 18px 14px;
+    gap: 14px;
+    border-radius: 6px;
+  }
+
+  .drawer-pills, .drawer-tags {
+    gap: 6px;
+  }
+
+  .quick-pill-btn {
+    padding: 6px 11px;
+    font-size: 9.5px;
+  }
+
+  .quick-tag-btn {
+    padding: 5px 9px;
+    font-size: 9.5px;
+  }
+
+  .menu-concierge-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .menu-gold-cta {
+    justify-content: center;
+    height: 42px;
+    width: 100%;
+  }
+
+  .menu-footer-bar {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    padding: 14px 4% calc(14px + env(safe-area-inset-bottom));
+    font-size: 8.5px;
+  }
+
+  .menu-quick-shortcuts {
+    gap: 16px;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  /* Portfolio Section on Phones */
+  .filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding: 0 0 10px 0;
+    margin: 22px 0 20px;
+    gap: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filters button {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    padding: 8px 16px;
+    font-size: 10.5px;
+    min-height: 40px;
+    border-radius: 20px;
+  }
+
+  .masonry {
+    columns: 1;
+    column-gap: 0;
+  }
+
+  .design-card {
+    margin-bottom: 22px;
+  }
+
+  .image-wrap img {
+    min-height: 250px;
+    max-height: 380px;
+  }
+
+  /* Mobile touch doesn't have hover, so make the "View Gold Study" badge gracefully visible */
+  .view {
+    transform: translateY(0);
+    bottom: 12px;
+    left: 12px;
+    font-size: 9px;
+    padding: 8px 14px;
+    background: rgba(12, 10, 7, 0.9);
+    border: 1px solid var(--gold-border);
+  }
+
+  /* Curated Jewellery Taxonomy on Phones */
+  .category-list > a {
+    display: grid;
+    grid-template-columns: 28px 1fr 20px;
+    grid-template-rows: auto auto;
+    padding: 15px 8px;
+    gap: 2px 10px;
+    align-items: baseline;
+  }
+
+  .category-list em {
+    grid-row: 1;
+    grid-column: 1;
+    font-size: 10px;
+  }
+
+  .category-list strong {
+    grid-row: 1;
+    grid-column: 2;
+    font-size: 22px;
+  }
+
+  .category-list > a > svg {
+    grid-row: 1;
+    grid-column: 3;
+    align-self: center;
+  }
+
+  .category-list span {
+    grid-row: 2;
+    grid-column: 2 / 4;
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+
+  /* Bespoke Studio & Enquiry Form */
+  .button-light {
+    width: 100%;
+    justify-content: center;
+    height: 48px;
+  }
+
+  .enquiry-form {
+    padding: 22px 16px;
+    gap: 16px;
+  }
+
+  .gold-button {
+    width: 100%;
+    justify-content: center;
+    height: 48px;
+    font-size: 11px;
+  }
+
+  /* Modals & Search Overlay */
+  .modal {
+    padding: 14px 10px;
+  }
+
+  .design-detail {
+    max-height: 92vh;
+  }
+
+  .design-detail img {
+    min-height: 200px;
+    height: 220px;
+  }
+
+  .design-detail > div {
+    padding: 22px 16px;
+  }
+
+  .design-detail h2 {
+    font-size: 28px;
+  }
+
+  .design-detail > div > p {
+    font-size: 15px;
+  }
+
+  .design-detail dt, .design-detail dd {
+    font-size: 11px;
+    padding: 8px 0;
+  }
+
+  .modal > button, .search-overlay > button {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .search-overlay {
+    padding: 10vh 5% 24px;
+  }
+
+  .search-overlay input {
+    font-size: 24px;
+  }
+
+  .search-results button {
+    padding: 10px 4px;
+    gap: 12px;
+  }
+
+  .search-results img {
+    width: 46px;
+    height: 46px;
+  }
+
+  .search-results span {
+    font-size: 16px;
+  }
+
+  /* Compact wave dividers on phones */
+  .gold-wave-divider-wrap {
+    height: 50px !important;
   }
 }
+
+/* 4. Ultra-Compact Phones (<= 380px — iPhone SE, Galaxy Fold) */
+@media (max-width: 380px) {
+  header {
+    padding: max(10px, env(safe-area-inset-top)) 3% 10px;
+  }
+
+  .pullart-brand-logo .pullart-wordmark-title {
+    font-size: 13.5px !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  .head-menu-btn {
+    padding: 0 11px;
+    font-size: 9.5px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .category-list strong {
+    font-size: 19px;
+  }
+
+  .capability h2 {
+    font-size: 24px;
+  }
+
+  .section {
+    padding: 60px 4%;
+  }
+
+  .type h3 {
+    font-size: 24px;
+  }
+}
+

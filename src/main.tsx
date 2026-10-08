@@ -151,7 +151,7 @@ function Header({
           onClick={onOpenMenu}
         >
           <span className="menu-btn-sparkle">✦</span>
-          <span>Atelier Menu</span>
+          <span className="menu-btn-label"><span className="hide-on-mobile">Atelier </span>Menu</span>
           <span className="menu-btn-live-dot" />
         </button>
       </div>
