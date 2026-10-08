@@ -11,139 +11,170 @@ export function PullartLogo({
   className = '',
   showTagline = true,
 }: PullartLogoProps) {
-  // Dimensions based on size
-  const iconSize = size === 'large' ? 44 : size === 'compact' ? 28 : 34
+  // Scaling factors
+  const width = size === 'large' ? 240 : size === 'compact' ? 140 : 185
+  const height = size === 'large' ? 68 : size === 'compact' ? 40 : 52
 
   return (
-    <div className={`pullart-brand-logo size-${size} ${className}`}>
-      {/* Precision Haute Jewellery Hallmark Emblem */}
-      <div className="pullart-emblem-wrap" style={{ width: iconSize, height: iconSize }}>
-        <svg
-          viewBox="0 0 100 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="pullart-emblem-svg"
-        >
-          <defs>
-            {/* 24K Royal Gold Gradient */}
-            <linearGradient id="pullartGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFF8D6" />
-              <stop offset="28%" stopColor="#F5D77F" />
-              <stop offset="55%" stopColor="#DFBA53" />
-              <stop offset="82%" stopColor="#B38318" />
-              <stop offset="100%" stopColor="#755006" />
-            </linearGradient>
+    <div className={`pullart-creative-brand size-${size} ${className}`}>
+      <svg
+        viewBox="0 0 280 82"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="pullart-logo-svg"
+        style={{ width: `${width}px`, height: `${height}px` }}
+      >
+        <defs>
+          {/* Luminous 24K Royal Gold Gradient */}
+          <linearGradient id="auroraGoldGrad" x1="0%" y1="0%" x2="100%" y2="80%">
+            <stop offset="0%" stopColor="#FFF7D6" />
+            <stop offset="22%" stopColor="#F5D882" />
+            <stop offset="50%" stopColor="#DFBA53" />
+            <stop offset="78%" stopColor="#B8861B" />
+            <stop offset="100%" stopColor="#7E5607" />
+          </linearGradient>
 
-            {/* Inner Gem Facet Highlight Gradient */}
-            <linearGradient id="gemFacetGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#AA7A1C" stopOpacity="0.4" />
-              <stop offset="50%" stopColor="#FFF2B8" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#E3BC50" stopOpacity="0.6" />
-            </linearGradient>
+          {/* Accent Diamond Sparkle Gradient */}
+          <linearGradient id="auroraSparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="45%" stopColor="#FFF8D9" />
+            <stop offset="75%" stopColor="#DFBA53" />
+            <stop offset="100%" stopColor="#A87515" />
+          </linearGradient>
 
-            {/* Subtle Gold Aura Glow */}
-            <filter id="goldAuraGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3.5" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-          </defs>
+          {/* Soft Gold Ambient Glow */}
+          <filter id="auroraGlow" x="-15%" y="-15%" width="130%" height="130%">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
 
-          {/* 1. Outer Precious Bezel Ring with 8 Alignment Prongs */}
-          <circle
-            cx="50"
-            cy="50"
-            r="44"
-            stroke="url(#pullartGoldGrad)"
-            strokeWidth="1.5"
-            strokeDasharray="2 3"
-            opacity="0.55"
-          />
-          <circle
-            cx="50"
-            cy="50"
-            r="40"
-            stroke="url(#pullartGoldGrad)"
-            strokeWidth="2"
-            filter="url(#goldAuraGlow)"
-          />
-
-          {/* 4 Cardinal Diamond Prongs */}
-          <circle cx="50" cy="10" r="2.2" fill="#FFF6D1" />
-          <circle cx="90" cy="50" r="2.2" fill="#FFF6D1" />
-          <circle cx="50" cy="90" r="2.2" fill="#FFF6D1" />
-          <circle cx="10" cy="50" r="2.2" fill="#FFF6D1" />
-
-          {/* 2. Architectural Sculpted "P" shaped as a Marquise Jewel Setting & Infinity Flow */}
-          {/* Main Stem of "P" - stylized solid gold column with bevel */}
+        {/* ------------------------------------------------------------------
+            TYPOGRAPHIC WORDMARK: "Pullart" in High-Fashion Editorial Serif
+            Inspired by the reference image's organic ligatures and luxury curves
+            ------------------------------------------------------------------ */}
+        <g fill="url(#auroraGoldGrad)" className="logo-letterforms">
+          {/* ====== 'P' ====== */}
+          {/* Elegant hairline arch loop on the left */}
           <path
-            d="M34 26 L34 74"
-            stroke="url(#pullartGoldGrad)"
-            strokeWidth="4"
-            strokeLinecap="round"
+            d="M20 54 C13 54 9 44 14 30 C17 21 24 16 33 16 C34 16 34.5 16.2 35 16.5 L35 18 C28 18 19 23 16.5 32 C14 41 16 52 23 52 L26 52 L26 54 Z"
           />
-          {/* Base hallmark pedestal line */}
+          {/* Main bold stem of P with flared base */}
           <path
-            d="M27 74 L41 74"
-            stroke="url(#pullartGoldGrad)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
+            d="M24 16 L35 16 L35 54 L24 54 Z"
           />
-          {/* Top serif flag */}
+          {/* P loop / bowl with fine contrast */}
           <path
-            d="M27 26 L37 26"
-            stroke="url(#pullartGoldGrad)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
+            d="M34 16 C47 16 58 22 58 32 C58 43 46 48 34 48 L34 44 C43 44 51 40 51 32 C51 24 42 20 34 20 Z"
           />
 
-          {/* Loop of "P" shaped as a Faceted Marquise Gemstone setting */}
+          {/* ====== 'u' ====== */}
+          {/* Left upright */}
           <path
-            d="M34 26 C48 26 68 31 68 44 C68 57 48 62 34 62"
-            stroke="url(#pullartGoldGrad)"
-            strokeWidth="4"
-            strokeLinecap="round"
+            d="M66 28 L73 28 L73 45 C73 48 76 50 81 50 C86 50 89 47 89 42 L89 28 L96 28 L96 43 C96 50 90 54 81 54 C72 54 66 49 66 42 Z"
           />
 
-          {/* Internal Geometric Facet Lines (CAD & Diamond Cut Symmetry) */}
+          {/* ====== First 'l' ====== */}
+          {/* Tall architectural stem with high-fashion terminal */}
           <path
-            d="M34 44 L68 44"
-            stroke="url(#gemFacetGrad)"
-            strokeWidth="1.5"
-            strokeDasharray="1 2"
-          />
-          <path
-            d="M48 27 L60 44 L48 61 L36 44 Z"
-            stroke="url(#gemFacetGrad)"
-            strokeWidth="1.5"
-            fill="rgba(255, 235, 160, 0.08)"
+            d="M104 16 L111 16 L111 50 C111 52 113 54 117 54 L117 55.5 L104 55.5 C104 53 104 50 104 46 Z"
           />
 
-          {/* 3. Central Radiance Sparkle (Brilliant Cut Diamond Glint) */}
-          <g className="emblem-center-sparkle">
-            <path
-              d="M50 36 L52.5 44 L60.5 44 L54 48.5 L56.5 56.5 L50 51.5 L43.5 56.5 L46 48.5 L39.5 44 L47.5 44 Z"
-              fill="url(#pullartGoldGrad)"
-              opacity="0.95"
-            />
-            <circle cx="50" cy="45" r="1.8" fill="#FFFFFF" />
-          </g>
+          {/* ====== Second 'l' ====== */}
+          <path
+            d="M123 16 L130 16 L130 50 C130 52 132 54 136 54 L136 55.5 L123 55.5 C123 53 123 50 123 46 Z"
+          />
 
-          {/* Tiny accent diamond pip */}
-          <circle cx="72" cy="28" r="1.5" fill="#FFF2B2" />
-        </svg>
-      </div>
+          {/* ====== 'a' ====== */}
+          {/* Teardrop curved bowl */}
+          <path
+            d="M144 41 C144 33 151 27 160 27 C169 27 175 33 175 42 L175 54 L168 54 L168 50 C165 53 161 54.5 156 54.5 C148 54.5 143 50 143 43 C143 36 150 32 168 31.5 L168 30.5 C168 28 165 26 160 26 C155 26 151 28 150 31 Z M168 37 C155 37.5 150 40 150 43.5 C150 46.5 153 49 158 49 C164 49 168 45 168 40 Z"
+          />
 
-      {/* Haute Jewellery Wordmark */}
-      <div className="pullart-wordmark-group">
-        <span className="pullart-name">
-          PULLART<span className="name-dot">.</span>
-        </span>
+          {/* ====== 'r' ====== */}
+          {/* Upright and delicate rounded branch */}
+          <path
+            d="M184 28 L191 28 L191 33 C193 29 198 27 204 27 L204 34 C198 34 191 36 191 43 L191 54 L184 54 Z"
+          />
+
+          {/* ====== 't' ====== */}
+          {/* Crossbar and curved foot */}
+          <path
+            d="M211 21 L217 21 L217 28 L227 28 L227 33 L217 33 L217 48 C217 51 219 52.5 223 52.5 C225 52.5 227 52 229 51 L229 55 C226 55.5 223 56 220 56 C213 56 210 52 210 46 L210 33 L206 33 L206 28 L210 28 L210 21 Z"
+          />
+        </g>
+
+        {/* ------------------------------------------------------------------
+            THE SIGNATURE JEWELLERY DIAMOND STAR (As seen on the reference 'O')
+            Perched gracefully on the crest of the letter 'P'
+            ------------------------------------------------------------------ */}
+        <g className="aurora-signature-star" filter="url(#auroraGlow)">
+          {/* 4-Point Concave Diamond Star */}
+          <path
+            d="M48 10 C48 14 52 18 56 18 C52 18 48 22 48 26 C48 22 44 18 40 18 C44 18 48 14 48 10 Z"
+            fill="url(#auroraSparkleGrad)"
+          />
+          {/* Center pure white brilliant facet */}
+          <circle cx="48" cy="18" r="1.3" fill="#FFFFFF" />
+        </g>
+
+        {/* ------------------------------------------------------------------
+            BOTTOM SUB-BAR: "— ✦ — DESIGNS — ✦ —"
+            Echoing the fine horizontal divider and diamond star from reference
+            ------------------------------------------------------------------ */}
         {showTagline && (
-          <span className="pullart-tagline">
-            <span className="tag-sparkle">✦</span> DESIGNS <span className="tag-sparkle">✦</span>
-          </span>
+          <g className="aurora-tagline-group">
+            {/* Left thin hairline rule */}
+            <line
+              x1="32"
+              y1="72"
+              x2="85"
+              y2="72"
+              stroke="url(#auroraGoldGrad)"
+              strokeWidth="0.75"
+              opacity="0.65"
+            />
+
+            {/* Left accent 4-point diamond star */}
+            <path
+              d="M93 68.5 C93 70.5 94.5 72 96.5 72 C94.5 72 93 73.5 93 75.5 C93 73.5 91.5 72 89.5 72 C91.5 72 93 70.5 93 68.5 Z"
+              fill="url(#auroraSparkleGrad)"
+            />
+
+            {/* Centered DESIGNS in high-fashion micro tracking */}
+            <text
+              x="138"
+              y="74.5"
+              textAnchor="middle"
+              fontFamily="'Manrope', -apple-system, sans-serif"
+              fontSize="7"
+              fontWeight="600"
+              letterSpacing="0.44em"
+              fill="url(#auroraGoldGrad)"
+              className="designs-caption-text"
+            >
+              DESIGNS
+            </text>
+
+            {/* Right accent 4-point diamond star */}
+            <path
+              d="M183 68.5 C183 70.5 184.5 72 186.5 72 C184.5 72 183 73.5 183 75.5 C183 73.5 181.5 72 179.5 72 C181.5 72 183 70.5 183 68.5 Z"
+              fill="url(#auroraSparkleGrad)"
+            />
+
+            {/* Right thin hairline rule */}
+            <line
+              x1="191"
+              y1="72"
+              x2="244"
+              y2="72"
+              stroke="url(#auroraGoldGrad)"
+              strokeWidth="0.75"
+              opacity="0.65"
+            />
+          </g>
         )}
-      </div>
+      </svg>
     </div>
   )
 }
