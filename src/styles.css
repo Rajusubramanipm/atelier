@@ -518,10 +518,9 @@ header nav a:hover::after {
 }
 
 .hero-content {
-  position: static;
+  position: relative;
   z-index: 5;
-  width: 54%;
-  padding-left: 9%;
+  width: 100%;
   pointer-events: none;
 }
 
@@ -529,6 +528,40 @@ header nav a:hover::after {
   position: relative;
   z-index: 5;
   pointer-events: auto;
+}
+
+/* Desktop 2-Column Responsive Layout (>= 1024px) */
+@media (min-width: 1024px) {
+  .hero-content {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 80px 2% 40px;
+    display: grid;
+    grid-template-columns: 1.12fr 0.88fr;
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    column-gap: 5vw;
+  }
+
+  .hero-badge-gold {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    grid-column: 1;
+    grid-row: 2;
+    margin-bottom: 26px;
+    text-align: left;
+  }
+
+  .hero-actions-group {
+    grid-column: 1;
+    grid-row: 3;
+    justify-content: flex-start;
+  }
 }
 
 .hero-badge-gold {
@@ -551,21 +584,24 @@ header nav a:hover::after {
 
 .hero h1 {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(68px, 9.5vw, 138px);
-  line-height: 0.84;
-  letter-spacing: -0.04em;
+  font-size: clamp(46px, 6.2vw, 98px);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
   font-weight: 400;
-  margin: 0 0 35px 0;
+  margin: 0 0 28px 0;
   color: var(--text-pure);
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
-.hero h1 i {
+.hero h1 i,
+.hero-gold-text i {
   font-style: italic;
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #eed588 !important;
   font-weight: 500;
-  filter: drop-shadow(0 0 25px rgba(223, 186, 83, 0.35));
+  text-shadow: 0 0 24px rgba(223, 186, 83, 0.55), 0 0 45px rgba(184, 134, 11, 0.3);
+  display: inline;
+  -webkit-text-fill-color: initial !important;
 }
 
 /* Harmonized Hero CTAs */
@@ -2094,8 +2130,8 @@ footer > div p {
   }
 }
 
-/* 2. Tablet Portrait & Mid Screens (<= 860px) */
-@media (max-width: 860px) {
+/* 2. Tablet Portrait & Mid Screens (<= 1023px) */
+@media (max-width: 1023px) {
   /* Prevent iOS Safari auto-zoom on form focus */
   input, select, textarea {
     font-size: 16px !important;
@@ -2109,7 +2145,7 @@ footer > div p {
   .hero.premium-hero {
     min-height: 100svh;
     height: auto;
-    padding: 105px 6% 40px;
+    padding: 100px 5% 45px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2119,6 +2155,8 @@ footer > div p {
 
   .hero-content {
     width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
     padding: 0;
     text-align: center;
     display: flex;
@@ -2129,15 +2167,15 @@ footer > div p {
   }
 
   .hero h1 {
-    font-size: clamp(42px, 10vw, 68px);
-    line-height: 0.98;
+    font-size: clamp(38px, 6.2vw, 58px);
+    line-height: 1.0;
     letter-spacing: -0.03em;
-    margin: 0 auto 12px;
+    margin: 0 auto 14px;
     text-align: center;
   }
 
   .hero-badge-gold {
-    font-size: 9px;
+    font-size: 8.5px;
     letter-spacing: 0.16em;
     padding: 6px 14px;
     margin: 0 auto 16px;
@@ -2155,11 +2193,14 @@ footer > div p {
 
   .intro > img {
     grid-column: auto;
-    height: 260px;
+    height: clamp(240px, 35vw, 340px);
+    border-radius: 10px;
+    object-fit: cover;
+    width: 100%;
   }
 
   .type-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
 
@@ -2580,6 +2621,12 @@ footer > div p {
     color: var(--text-muted);
   }
 
+  /* 24K vs 22K Solid Gold Grid on Phones */
+  .type-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
   /* Bespoke Studio & Enquiry Form */
   .button-light {
     width: 100%;
@@ -2589,6 +2636,11 @@ footer > div p {
 
   .enquiry-form {
     padding: 22px 16px;
+    gap: 16px;
+  }
+
+  .enquiry-form > div {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 

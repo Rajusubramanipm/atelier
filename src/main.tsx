@@ -389,8 +389,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.15 }}
             >
-              The poetry<br />
-              of <i>pure gold.</i>
+              The poetry of <span className="hero-gold-text"><i>pure gold.</i></span>
             </motion.h1>
 
             {/* 3D Gold Jewellery Sculpture under Spotlight (Prominently visible & interactive on mobile & desktop) */}
